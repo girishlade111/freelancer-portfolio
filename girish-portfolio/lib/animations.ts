@@ -5,7 +5,7 @@ export const sectionEntry = {
   initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+  transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
 };
 
 // Stagger container
@@ -29,7 +29,7 @@ export const staggerChild: Variants = {
 export const fadeInUp = {
   initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+  transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
 };
 
 // Hero letter reveal
@@ -39,6 +39,6 @@ export const heroLetterReveal = (index: number) => ({
   transition: {
     delay: 0.6 + index * 0.038,
     duration: 0.65,
-    ease: [0.25, 0.46, 0.45, 0.94],
+    ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
   },
 });
