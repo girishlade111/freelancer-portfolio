@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import { Public_Sans, Inter, JetBrains_Mono } from "next/font/google";
 import CustomCursor from "@/components/ui/CustomCursor";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesk({
+const bricolage = Public_Sans({
   subsets: ["latin"],
   variable: "--font-bricolage",
 });
