@@ -1,40 +1,76 @@
 "use client";
 
-import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { skills } from "@/data/skills";
-import SkillAccordionItem from "@/components/ui/SkillAccordionItem";
 import { sectionEntry } from "@/lib/animations";
 
 export default function SkillsSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
   const prefersReduced = useReducedMotion();
   const animProps = prefersReduced ? {} : sectionEntry;
 
   return (
-    <motion.section id="skills" className="bg-navy-900 section-padding" {...animProps}>
-      <div className="content-max">
-        {/* SECTION HEADER ROW */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-0">
-          <h2 className="section-title">SKILLS</h2>
-          <p className="max-w-sm text-sm text-cream-500 leading-relaxed md:text-right">
-            The stack I've used to ship 10+ products from idea to production.
-          </p>
+    <motion.section id="skills" className="bg-caro-light text-black px-6 md:px-12 xl:px-24 py-24 md:py-32" {...animProps}>
+      
+      {/* HEADER SECTION */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8 border-b border-black/10 pb-16">
+        
+        {/* LEFT: Title */}
+        <div className="flex items-start gap-4">
+          <span className="font-sans font-bold text-caro-orange text-sm mt-4 md:mt-8">// 03</span>
+          <h2 className="font-bricolage text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
+            SKILLS
+          </h2>
         </div>
 
-        {/* ACCORDION LIST */}
-        <div className="mt-12 space-y-0">
-          {skills.map((skill, index) => (
-            <SkillAccordionItem
-              key={skill.id}
-              skill={skill}
-              isOpen={openIndex === index}
-              isFirst={index === 0}
-              onToggle={() => setOpenIndex(openIndex === index ? null : index)}
-            />
-          ))}
+        {/* RIGHT: Description */}
+        <div className="max-w-xs md:max-w-sm">
+          <p className="font-sans text-sm text-black/60 leading-relaxed md:text-right font-medium">
+            Every great product starts with the right skills applied in the right order. Here's what's in the arsenal.
+          </p>
         </div>
       </div>
+
+      {/* SKILLS LIST */}
+      <div className="flex flex-col">
+        {skills.map((skill, index) => (
+          <div 
+            key={skill.id} 
+            className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 py-12 ${index !== skills.length - 1 ? 'border-b border-black/10' : ''}`}
+          >
+            
+            {/* LEFT: Title */}
+            <div className="md:col-span-5 lg:col-span-6 flex items-start">
+              <h3 className="font-bricolage text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight uppercase">
+                {skill.title}
+              </h3>
+            </div>
+
+            {/* RIGHT: Description & Tags */}
+            <div className="md:col-span-7 lg:col-span-6 flex flex-col gap-6">
+              <p className="font-sans text-sm text-black/70 leading-relaxed max-w-lg font-medium">
+                {skill.description}
+              </p>
+              
+              <div className="flex flex-wrap gap-2">
+                {skill.tags.map((tag, tagIndex) => (
+                  <span 
+                    key={tagIndex} 
+                    className={`font-sans text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full ${
+                      tagIndex === skill.tags.length - 1 
+                        ? "bg-black text-white" 
+                        : "border border-black/20 text-black/60"
+                    }`}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        ))}
+      </div>
+
     </motion.section>
   );
 }
