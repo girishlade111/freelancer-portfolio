@@ -19,7 +19,7 @@ export default function ProjectsSection() {
         {/* LEFT: Title */}
         <div className="flex items-start gap-4">
           <span className="font-sans font-bold text-caro-orange text-sm mt-4 md:mt-8">// 02</span>
-          <h2 className="font-bricolage text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
+          <h2 className="font-bricolage text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
             PROJECTS
           </h2>
         </div>
