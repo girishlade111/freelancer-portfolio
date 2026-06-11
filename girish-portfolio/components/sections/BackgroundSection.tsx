@@ -39,7 +39,7 @@ export default function BackgroundSection() {
         {/* LEFT: Title */}
         <div className="flex items-start gap-4">
           <span className="font-sans font-bold text-caro-orange text-sm mt-4 md:mt-8">// 05</span>
-          <h2 className="font-bricolage text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
+          <h2 className="font-bricolage text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
             BACKGROUND
           </h2>
         </div>
@@ -56,12 +56,12 @@ export default function BackgroundSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
         
         {/* LEFT: TABS */}
-        <div className="lg:col-span-3 flex flex-col gap-4">
+        <div className="lg:col-span-3 flex flex-row lg:flex-col gap-6 lg:gap-4 overflow-x-auto pb-4 lg:pb-0 scrollbar-none whitespace-nowrap border-b border-black/5 lg:border-none">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`text-left font-bricolage text-xl md:text-2xl font-semibold transition-colors duration-300 ${
+              className={`text-left font-bricolage text-xl md:text-2xl font-semibold transition-colors duration-300 shrink-0 ${
                 activeTab === tab ? "text-black" : "text-black/30 hover:text-black/60"
               }`}
             >
@@ -74,7 +74,7 @@ export default function BackgroundSection() {
         <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-12">
           
           {/* IMAGE */}
-          <div className="relative aspect-[3/4] w-full max-w-sm overflow-hidden bg-black">
+          <div className="relative aspect-[3/4] w-full max-w-sm mx-auto md:mx-0 overflow-hidden bg-black">
             <Image
               src="https://placehold.co/600x800/FC7200/ffffff?text=Background"
               alt="Background"

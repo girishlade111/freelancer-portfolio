@@ -29,7 +29,7 @@ export default function TestimonialsSection() {
         {/* LEFT: Title */}
         <div className="flex items-start gap-4">
           <span className="font-sans font-bold text-caro-orange text-sm mt-4 md:mt-8">// 06</span>
-          <h2 className="font-bricolage text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
+          <h2 className="font-bricolage text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
             TESTIMONIALS
           </h2>
         </div>
@@ -48,7 +48,7 @@ export default function TestimonialsSection() {
         {/* LEFT SIDE: Text & Nav */}
         <div className="flex flex-col h-full justify-between">
           
-          <div className="relative min-h-[300px] flex flex-col justify-center">
+          <div className="relative min-h-[220px] md:min-h-[300px] flex flex-col justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
@@ -70,7 +70,7 @@ export default function TestimonialsSection() {
                 </div>
 
                 {/* QUOTE */}
-                <p className="font-bricolage text-3xl md:text-4xl text-white leading-snug tracking-tight font-medium">
+                <p className="font-bricolage text-2xl sm:text-3xl md:text-4xl text-white leading-snug tracking-tight font-medium">
                   "{testimonials[active].quote}"
                 </p>
 
