@@ -20,17 +20,15 @@
 ## 📑 Table of Contents
 
 - [✨ Features](#-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🏗️ System Architecture](#️-system-architecture)
+- [🛠️ Tech Stack](#-tech-stack)
+- [🏗️ System Architecture](#-system-architecture)
 - [📂 Project Structure](#-project-structure)
 - [🚀 Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Available Scripts](#available-scripts)
-- [⚙️ Configuration](#️-configuration)
+- [⚙️ Configuration](#-configuration)
 - [📊 GitHub Stats](#-github-stats)
 - [🎨 Design System](#-design-system)
 - [♿ Accessibility](#-accessibility)
+- [🚢 Deployment](#-deployment)
 - [🤝 Contributing](#-contributing)
 - [📜 License](#-license)
 - [📬 Contact](#-contact)
@@ -267,10 +265,10 @@ flowchart TB
 
 ### 🔍 Architecture Highlights
 
-- **🏝️ Islands of Interactivity** — Server Components by default, Client Components only where needed (animations, forms, cursor).
-- **🧩 Component Colocation** — Logical grouping in `components/{layout,sections,ui}` for maintainability.
-- **📊 Data-Driven Sections** — Content sourced from `data/*.ts` files for easy updates without touching components.
-- **🎨 Token-Based Styling** — Design tokens flow through Tailwind v4 + CSS variables for theming consistency.
+- **🏝️ Islands of Interactivity** — Server Components by default, Client Components only where needed.
+- **🧩 Component Colocation** — Logical grouping in `components/{layout,sections,ui}`.
+- **📊 Data-Driven Sections** — Content sourced from `data/*.ts` files.
+- **🎨 Token-Based Styling** — Design tokens flow through Tailwind v4 + CSS variables.
 - **⚡ Edge-Ready** — Built on Next.js 16 for optimal performance on Vercel's edge network.
 
 ---
@@ -280,57 +278,26 @@ flowchart TB
 ```
 girish-portfolio/
 ├── 📁 app/                          # Next.js App Router
-│   ├── 🎨 globals.css              # Global styles + Tailwind directives
-│   ├── 📄 layout.tsx               # Root layout (fonts, metadata)
-│   ├── 📄 page.tsx                 # Home page composition
+│   ├── 🎨 globals.css
+│   ├── 📄 layout.tsx
+│   ├── 📄 page.tsx
 │   └── 🖼️ favicon.ico
 │
 ├── 📁 components/
-│   ├── 📁 layout/                  # Layout-level components
-│   │   ├── 🧭 Navbar.tsx
-│   │   └── 🦶 Footer.tsx
-│   │
-│   ├── 📁 sections/                # Page sections
-│   │   ├── 🏠 HeroSection.tsx
-│   │   ├── 👤 AboutSection.tsx
-│   │   ├── 💼 ProjectsSection.tsx
-│   │   ├── 🧠 SkillsSection.tsx
-│   │   ├── 🛠️ DevProcessSection.tsx
-│   │   ├── 📚 BackgroundSection.tsx
-│   │   ├── 💬 TestimonialsSection.tsx
-│   │   ├── ❓ FAQSection.tsx
-│   │   └── 📨 ContactSection.tsx
-│   │
-│   └── 📁 ui/                      # Reusable UI primitives
-│       ├── 🃏 ProjectCard.tsx
-│       ├── 🃏 ProcessCard.tsx
-│       ├── 🎯 Icons.tsx
-│       └── 🖱️ CustomCursor.tsx
+│   ├── 📁 layout/                  # Navbar, Footer
+│   ├── 📁 sections/                # Hero, About, Projects, Skills, Process, Background, Testimonials, FAQ, Contact
+│   └── 📁 ui/                      # ProjectCard, ProcessCard, Icons, CustomCursor
 │
-├── 📁 data/                        # Static data sources
-│   ├── ❓ faqs.ts
-│   ├── 🛠️ process.ts
-│   ├── 💼 projects.ts
-│   ├── 🧠 skills.ts
-│   └── 💬 testimonials.ts
+├── 📁 data/                        # projects, skills, process, testimonials, faqs
+├── 📁 lib/                         # utils.ts (cn), animations.ts
+├── 📁 public/                      # images, SVGs
 │
-├── 📁 lib/                         # Utility libraries
-│   ├── 🛠️ utils.ts                # cn() className merger
-│   └── 🎞️ animations.ts           # Framer Motion variants
-│
-├── 📁 public/                      # Static assets
-│   ├── 🖼️ images/
-│   └── 📄 file.svg, globe.svg, etc.
-│
-├── ⚙️ .gitignore
-├── 🤖 AGENTS.md
-├── 🤖 CLAUDE.md
 ├── ⚙️ components.json             # shadcn config
-├── ⚙️ eslint.config.mjs           # ESLint flat config
-├── ⚙️ next.config.ts              # Next.js configuration
+├── ⚙️ eslint.config.mjs
+├── ⚙️ next.config.ts
 ├── 📦 package.json
-├── ⚙️ postcss.config.mjs          # PostCSS config
-├── ⚙️ tsconfig.json               # TypeScript config
+├── ⚙️ postcss.config.mjs
+├── ⚙️ tsconfig.json
 └── 📖 README.md
 ```
 
@@ -341,8 +308,6 @@ girish-portfolio/
 > Get the portfolio running locally in under 2 minutes.
 
 ### Prerequisites
-
-Make sure you have the following installed on your machine:
 
 - ✅ **Node.js** `>= 18.18` (LTS recommended — `v20+`)
 - ✅ **Package Manager** — `npm`, `yarn`, `pnpm`, or `bun`
@@ -360,17 +325,7 @@ Make sure you have the following installed on your machine:
 2. **📦 Install dependencies**
 
    ```bash
-   # Using npm
-   npm install
-
-   # Using yarn
-   yarn install
-
-   # Using pnpm
-   pnpm install
-
-   # Using bun
-   bun install
+   npm install     # or yarn / pnpm / bun install
    ```
 
 3. **▶️ Start the development server**
@@ -379,6 +334,35 @@ Make sure you have the following installed on your machine:
    npm run dev
    ```
 
-4. **🌐 Open your browser**
+4. **🌐 Open your browser** at [http://localhost:3000](http://localhost:3000)
 
-   Navigate to [http://localhost:3000](http://localhost:3000) and enjoy
+> 💡 **Tip:** The page auto-updates as you edit files in the `app/`, `components/`, or `data/` directories.
+
+### Available Scripts
+
+| Script     | Command         | Description                                         |
+| ---------- | --------------- | --------------------------------------------------- |
+| 🚀 `dev`   | `npm run dev`   | Starts the development server with hot-reload       |
+| 🏗️ `build` | `npm run build` | Creates an optimized production build               |
+| ▶️ `start` | `npm run start` | Runs the production build locally                   |
+| 🧹 `lint`  | `npm run lint`  | Lints the codebase using ESLint with Next.js config |
+
+---
+
+## ⚙️ Configuration
+
+> Key configuration files that control the project's behavior.
+
+### 📄 `next.config.ts`
+
+```ts
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "placehold.co" }],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "inline",
+  },
+};
+```
+
+- 🖼️ **`remotePatterns`** — Whitelists `placehold.co` for `next
