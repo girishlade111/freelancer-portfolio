@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { Loader2, CheckCircle } from "lucide-react";
-import { Github, Twitter, Linkedin } from "@/components/ui/Icons";
+import { ArrowUpRight, Loader2, CheckCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -12,7 +12,7 @@ import { sectionEntry } from "@/lib/animations";
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Valid email is required"),
-  message: z.string().min(10, "Message is required"),
+  phone: z.string().optional(),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -31,125 +31,131 @@ export default function ContactSection() {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
-    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
     console.log(data);
     setIsSuccess(true);
   };
 
   return (
-    <motion.section id="contact" className="bg-navy-900 section-padding" {...animProps}>
-      <div className="content-max">
-        {/* HEADER */}
-        <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold-600 mb-4">
-          LET'S BUILD SOMETHING
+    <motion.section id="contact" className="bg-caro-light text-black px-6 md:px-12 xl:px-24 py-24 md:py-32" {...animProps}>
+      
+      {/* HEADER SECTION */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8 border-b border-black/10 pb-16">
+        
+        {/* LEFT: Title */}
+        <div className="flex items-start gap-4">
+          <span className="font-sans font-bold text-caro-orange text-sm mt-4 md:mt-8">// 08</span>
+          <h2 className="font-bricolage text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
+            GET IN TOUCH
+          </h2>
         </div>
-        <h2 
-          className="font-bricolage font-extrabold text-cream-50 leading-none mb-4"
-          style={{ fontSize: "clamp(3rem, 7vw, 7rem)" }}
-        >
-          Say hello<span className="text-gold-600">.</span>
-        </h2>
-        <p className="font-inter text-sm text-cream-500 max-w-sm mb-12">
-          Available for freelance projects, long-term contracts, and agency partnerships.
-        </p>
 
-        {/* TWO-COLUMN LAYOUT */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        {/* RIGHT: Description */}
+        <div className="max-w-xs md:max-w-sm">
+          <p className="font-sans text-sm text-black/60 leading-relaxed md:text-right font-medium">
+            Open to full-time roles, freelance projects, and good design conversations. Drop a message — it won't sit unanswered for long.
+          </p>
+        </div>
+      </div>
+
+      {/* TWO-COLUMN LAYOUT */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        
+        {/* LEFT COLUMN: FORM */}
+        <div>
+          <h3 className="font-bricolage text-4xl md:text-5xl font-bold tracking-tight mb-12">
+            Say hello!
+          </h3>
+
+          {isSuccess ? (
+            <div className="flex flex-col items-center justify-center text-center p-12 bg-black text-white h-[300px]">
+              <CheckCircle size={48} className="text-caro-orange mb-6" />
+              <h3 className="font-bricolage text-2xl mb-2">Message sent.</h3>
+              <p className="font-sans text-white/60">I'll get back to you within 24 hours.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+              <div>
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  {...register("name")}
+                  className="w-full bg-transparent border-b border-black/20 focus:border-caro-orange focus:outline-none px-0 py-4 text-black text-sm placeholder:text-black/40 transition-colors duration-300"
+                />
+                {errors.name && <p className="text-red-500 text-xs mt-2">{errors.name.message}</p>}
+              </div>
+              
+              <div>
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  {...register("email")}
+                  className="w-full bg-transparent border-b border-black/20 focus:border-caro-orange focus:outline-none px-0 py-4 text-black text-sm placeholder:text-black/40 transition-colors duration-300"
+                />
+                {errors.email && <p className="text-red-500 text-xs mt-2">{errors.email.message}</p>}
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Your phone number"
+                  {...register("phone")}
+                  className="w-full bg-transparent border-b border-black/20 focus:border-caro-orange focus:outline-none px-0 py-4 text-black text-sm placeholder:text-black/40 transition-colors duration-300"
+                />
+              </div>
+
+              <motion.button
+                type="submit"
+                disabled={isSubmitting}
+                whileTap={{ scale: 0.99 }}
+                className="w-full bg-black text-white font-sans font-bold py-5 px-8 uppercase tracking-widest text-xs hover:bg-caro-orange transition-colors duration-300 mt-6 flex justify-between items-center"
+                data-cursor="link"
+              >
+                <span>Submit</span>
+                {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : <ArrowUpRight size={16} />}
+              </motion.button>
+            </form>
+          )}
+        </div>
+
+        {/* RIGHT COLUMN: IMAGE & INFO */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
           
-          {/* LEFT COLUMN */}
-          <div>
-            <a 
-              href="mailto:girish@ladestack.in" 
-              className="inline-block mt-2 mb-8 font-mono text-sm md:text-base text-gold-600 hover:text-gold-400 transition-colors tracking-wide"
-              data-cursor="link"
-            >
-              girish@ladestack.in
-            </a>
-
-            <div className="flex gap-3 mt-6">
-              <a href="https://github.com/girishlade" target="_blank" rel="noopener noreferrer" className="w-11 h-11 border border-gold/20 hover:border-gold/60 hover:bg-gold-600/10 flex items-center justify-center transition-all duration-300" aria-label="GitHub" data-cursor="link">
-                <Github size={16} className="text-cream-500" />
-              </a>
-              <a href="#" className="w-11 h-11 border border-gold/20 hover:border-gold/60 hover:bg-gold-600/10 flex items-center justify-center transition-all duration-300" aria-label="Twitter" data-cursor="link">
-                <Twitter size={16} className="text-cream-500" />
-              </a>
-              <a href="#" className="w-11 h-11 border border-gold/20 hover:border-gold/60 hover:bg-gold-600/10 flex items-center justify-center transition-all duration-300" aria-label="LinkedIn" data-cursor="link">
-                <Linkedin size={16} className="text-cream-500" />
-              </a>
-            </div>
-
-            <div className="mt-8 inline-flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="font-mono text-[11px] text-cream-500 tracking-wide">
-                Available for new projects
-              </span>
-            </div>
+          <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
+            <Image
+              src="https://placehold.co/600x800/FC7200/ffffff?text=Contact"
+              alt="Contact"
+              fill
+              className="object-cover"
+            />
           </div>
 
-          {/* RIGHT COLUMN: Contact Form */}
-          <div>
-            {isSuccess ? (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center justify-center text-center p-12 bg-navy-800 border border-gold/10"
-              >
-                <CheckCircle size={48} className="text-gold-600 mb-6" />
-                <h3 className="font-bricolage text-2xl text-cream-100 mb-2">Message sent.</h3>
-                <p className="font-inter text-cream-500">I'll get back to you within 24 hours.</p>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    {...register("name")}
-                    className="w-full bg-navy-700 border border-gold/15 focus:border-gold/45 focus:outline-none px-4 py-3.5 text-cream-100 text-sm placeholder:text-cream-700 transition-colors duration-200 rounded-none"
-                  />
-                  {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}
-                </div>
-                
-                <div>
-                  <input
-                    type="email"
-                    placeholder="Email address"
-                    {...register("email")}
-                    className="w-full bg-navy-700 border border-gold/15 focus:border-gold/45 focus:outline-none px-4 py-3.5 text-cream-100 text-sm placeholder:text-cream-700 transition-colors duration-200 rounded-none"
-                  />
-                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
-                </div>
+          <div className="flex flex-col justify-center gap-12">
+            <div>
+              <h4 className="font-sans text-[10px] uppercase tracking-widest font-bold text-black mb-2">Email</h4>
+              <a href="mailto:girish@ladestack.in" className="font-sans text-sm text-black/60 hover:text-caro-orange transition-colors" data-cursor="link">
+                girish@ladestack.in
+              </a>
+            </div>
+            
+            <div>
+              <h4 className="font-sans text-[10px] uppercase tracking-widest font-bold text-black mb-2">Address</h4>
+              <p className="font-sans text-sm text-black/60 leading-relaxed">
+                6520 Chicago Heights, Cook County,<br />Illinois, United States.
+              </p>
+            </div>
 
-                <div>
-                  <textarea
-                    rows={5}
-                    placeholder="Tell me about your project..."
-                    {...register("message")}
-                    className="w-full bg-navy-700 border border-gold/15 focus:border-gold/45 focus:outline-none px-4 py-3.5 text-cream-100 text-sm placeholder:text-cream-700 transition-colors duration-200 rounded-none resize-none"
-                  />
-                  {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>}
-                </div>
-
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
-                  whileTap={{ scale: 0.99 }}
-                  className="w-full bg-gold-600 text-navy-900 font-bricolage font-bold py-4 px-8 uppercase tracking-[0.15em] text-sm hover:bg-gold-400 transition-colors duration-300 mt-2 flex justify-center items-center h-[52px]"
-                  data-cursor="link"
-                >
-                  {isSubmitting ? (
-                    <Loader2 size={18} className="animate-spin" />
-                  ) : (
-                    "Send Message →"
-                  )}
-                </motion.button>
-              </form>
-            )}
+            <div>
+              <h4 className="font-sans text-[10px] uppercase tracking-widest font-bold text-black mb-2">Call Me</h4>
+              <a href="tel:8084567890" className="font-sans text-sm text-black/60 hover:text-caro-orange transition-colors" data-cursor="link">
+                (808) 456 7890
+              </a>
+            </div>
           </div>
 
         </div>
       </div>
+
     </motion.section>
   );
 }
