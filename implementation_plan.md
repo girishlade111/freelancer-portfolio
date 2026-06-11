@@ -11,12 +11,6 @@ Ensure the portfolio website is fully responsive, fits perfectly on all mobile d
 
 ### 2. Layout Components
 
-n.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/HeroSection.tsx)
-
-- Scale down the massive "GIRISH" hero name text on mobile using Tailwind responsive utility classes (`text-[12vw] sm:text-[14vw] md:text-[clamp(6rem,20vw,22rem)]`) instead of the hardcoded inline style `fontSize: "clamp(6rem, 20vw, 22rem)"`.
-- Adjust character container margins (`mx-0 md:-mx-[2%]`) to keep letters properly aligned on mobile.
-- Make the main background image container responsive (`w-[85vw] max-w-[320px] md:w-full md:max-w-[500px] md:h-[70vh] aspect-[3/4] h-auto`) to prevent viewport overflows.
-
 #### [MODIFY] [AboutSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/AboutSection.tsx)
 
 - Adapt the Stats text sizes (`text-5xl sm:text-6xl md:text-7xl`) to avoid text wrapping awkwardly on small screens.
