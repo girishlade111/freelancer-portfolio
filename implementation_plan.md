@@ -9,24 +9,8 @@ Ensure the portfolio website is fully responsive, fits perfectly on all mobile d
 
 ## Proposed Changes
 
-### 2. Layout Components
+Scale down the header "DESIGN PROCESS" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`).
 
-#### [MODIFY] [AboutSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/AboutSection.tsx)
-
-- Adapt the Stats text sizes (`text-5xl sm:text-6xl md:text-7xl`) to avoid text wrapping awkwardly on small screens.
-- Center the main portrait image on mobile viewports using standard margins (`mx-auto lg:mx-0`).
-
-#### [MODIFY] [ProjectsSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/ProjectsSection.tsx)
-
-- Scale down the header "PROJECTS" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`) to avoid clipping.
-
-#### [MODIFY] [SkillsSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/SkillsSection.tsx)
-
-- Scale down the header "SKILLS" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`) to prevent line wrapping.
-
-#### [MODIFY] [DevProcessSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/DevProcessSection.tsx)
-
-- Scale down the header "DESIGN PROCESS" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`).
 - Update `ProcessCard.tsx` padding on mobile (`p-6 sm:p-10 md:p-12`) to afford more horizontal reading space.
 
 #### [MODIFY] [BackgroundSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/BackgroundSection.tsx)
