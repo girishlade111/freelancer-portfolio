@@ -47,7 +47,7 @@ export default function AboutSection() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         
         {/* IMAGE */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden">
+        <div className="relative aspect-[4/3] w-full max-w-md mx-auto lg:mx-0 overflow-hidden">
           <Image
             src="https://placehold.co/800x600/3A4F3A/ffffff?text=About+Image"
             alt="About"
@@ -60,22 +60,22 @@ export default function AboutSection() {
         <div className="grid grid-cols-2 gap-x-12 gap-y-16">
           
           <div className="border-b border-black/10 pb-6">
-            <h3 className="font-bricolage text-6xl md:text-7xl font-bold tracking-tighter mb-4">81+</h3>
+            <h3 className="font-bricolage text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">81+</h3>
             <p className="font-sans text-xs text-black/60 font-semibold">Projects Designed & Delivered</p>
           </div>
 
           <div className="border-b border-black/10 pb-6">
-            <h3 className="font-bricolage text-6xl md:text-7xl font-bold tracking-tighter mb-4">12+</h3>
+            <h3 className="font-bricolage text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">12+</h3>
             <p className="font-sans text-xs text-black/60 font-semibold">Tools & Platforms Worked With</p>
           </div>
 
           <div className="border-b border-black/10 pb-6">
-            <h3 className="font-bricolage text-6xl md:text-7xl font-bold tracking-tighter mb-4">2+</h3>
+            <h3 className="font-bricolage text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">2+</h3>
             <p className="font-sans text-xs text-black/60 font-semibold">Years of Expertise</p>
           </div>
 
           <div className="border-b border-black/10 pb-6">
-            <h3 className="font-bricolage text-6xl md:text-7xl font-bold tracking-tighter mb-4">24+</h3>
+            <h3 className="font-bricolage text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">24+</h3>
             <p className="font-sans text-xs text-black/60 font-semibold">Worldwide Clients</p>
           </div>
 

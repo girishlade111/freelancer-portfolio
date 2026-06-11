@@ -14,7 +14,7 @@ export default function HeroSection() {
       {/* BACKGROUND IMAGE / CENTER IMAGE */}
       <div className="absolute inset-0 z-0 flex justify-center lg:justify-end items-center pr-0 lg:pr-32 opacity-60 lg:opacity-100">
         <motion.div 
-          className="relative w-full max-w-[500px] aspect-[3/4] md:w-[600px] xl:w-[700px] h-[70vh]"
+          className="relative w-[85vw] max-w-[320px] aspect-[3/4] md:w-[600px] xl:w-[700px] md:h-[70vh]"
           initial={prefersReduced ? { opacity: 1 } : { opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
@@ -44,10 +44,9 @@ export default function HeroSection() {
       </div>
 
       {/* HERO NAME */}
-      <div className="relative z-10 w-full px-6 md:px-12 xl:px-24">
+      <div className="relative z-10 w-full px-6 md:px-12 xl:px-24 overflow-hidden">
         <h1 
-          className="font-bricolage font-extrabold leading-none text-white tracking-tighter flex justify-between uppercase"
-          style={{ fontSize: "clamp(6rem, 20vw, 22rem)", margin: "0 -2%" }}
+          className="font-bricolage font-extrabold leading-none text-white tracking-tighter flex justify-between uppercase text-[13vw] sm:text-[15vw] md:text-[clamp(6rem,20vw,22rem)] mx-0 md:-mx-[2%]"
         >
           {name.split("").map((char, index) => (
             <span key={index} className="inline-block overflow-hidden">
