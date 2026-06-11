@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { faqs } from "@/data/faqs";
-import { sectionEntry } from "@/lib/animations";
+import { sectionEntry, staggerContainer, staggerChild } from "@/lib/animations";
 
 export default function FAQSection() {
   const prefersReduced = useReducedMotion();
@@ -32,11 +32,17 @@ export default function FAQSection() {
       </div>
 
       {/* FAQ ACCORDION */}
-      <div className="flex flex-col max-w-4xl mx-auto w-full">
+      <motion.div 
+        className="flex flex-col max-w-4xl mx-auto w-full"
+        variants={prefersReduced ? {} : staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
         {faqs.map((faq, index) => (
           <FAQItem key={index} faq={faq} index={index + 1} />
         ))}
-      </div>
+      </motion.div>
 
     </motion.section>
   );
@@ -46,7 +52,8 @@ function FAQItem({ faq, index }: { faq: { question: string; answer: string }; in
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div
+    <motion.div
+      variants={staggerChild}
       className="py-6 border-b border-black/10 cursor-pointer"
       onClick={() => setIsOpen(!isOpen)}
       data-cursor="link"
@@ -84,6 +91,6 @@ function FAQItem({ faq, index }: { faq: { question: string; answer: string }; in
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
