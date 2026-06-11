@@ -1,0 +1,30 @@
+# Task List
+
+- `[x]` Review plan
+- `[/]` Verify existing Next.js bootstrap and dependencies
+- `[ ]` Setup Tailwind configuration & Global CSS variables
+- `[ ]` Configure Fonts in `app/layout.tsx`
+- `[ ]` Create Data Files
+  - `[ ]` `projects.ts`
+  - `[ ]` `skills.ts`
+  - `[ ]` `process.ts`
+  - `[ ]` `testimonials.ts`
+  - `[ ]` `faqs.ts`
+- `[ ]` Create Shared UI Components & Utilities
+  - `[ ]` `lib/utils.ts` and `lib/animations.ts`
+  - `[ ]` `CustomCursor.tsx`
+  - `[ ]` `ScrollIndicator.tsx`
+  - `[ ]` `MarqueeStrip.tsx`
+- `[ ]` Build Layout
+  - `[ ]` `Navbar.tsx`
+  - `[ ]` `Footer.tsx`
+- `[ ]` Build Sections
+  - `[ ]` `HeroSection.tsx`
+  - `[ ]` `ProjectsSection.tsx` & `ProjectCard.tsx`
+  - `[ ]` `SkillsSection.tsx` & `SkillAccordionItem.tsx`
+  - `[ ]` `DevProcessSection.tsx` & `ProcessCard.tsx`
+  - `[ ]` `TestimonialsSection.tsx`
+  - `[ ]` `FAQSection.tsx`
+  - `[ ]` `ContactSection.tsx`
+- `[ ]` Assemble `app/page.tsx`
+- `[ ]` Verify functionality & responsive design
