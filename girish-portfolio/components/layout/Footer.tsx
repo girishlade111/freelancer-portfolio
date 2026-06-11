@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Linkedin, Github, Instagram, Codepen } from "@/components/ui/Icons";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/projects";
@@ -65,17 +66,17 @@ export default function Footer() {
         <div>
           <h4 className="font-sans text-sm font-bold tracking-widest uppercase mb-8">Follow Me</h4>
           <div className="flex flex-col gap-4 max-w-[200px]">
-            <a href="#" className="flex justify-between items-center text-white/60 hover:text-white transition-colors text-sm font-sans" data-cursor="link">
+            <a href="https://www.linkedin.com/in/girish-lade-075bba201/" target="_blank" rel="noopener noreferrer" className="flex justify-between items-center text-white/60 hover:text-caro-orange transition-colors text-sm font-sans" data-cursor="link">
               LinkedIn <ArrowUpRight size={14} />
             </a>
-            <a href="#" className="flex justify-between items-center text-white/60 hover:text-white transition-colors text-sm font-sans border-t border-white/10 pt-4" data-cursor="link">
+            <a href="https://www.instagram.com/girish_lade_/" target="_blank" rel="noopener noreferrer" className="flex justify-between items-center text-white/60 hover:text-caro-orange transition-colors text-sm font-sans border-t border-white/10 pt-4" data-cursor="link">
               Instagram <ArrowUpRight size={14} />
             </a>
-            <a href="#" className="flex justify-between items-center text-white/60 hover:text-white transition-colors text-sm font-sans border-t border-white/10 pt-4" data-cursor="link">
-              Dribbble <ArrowUpRight size={14} />
+            <a href="https://github.com/girishlade111" target="_blank" rel="noopener noreferrer" className="flex justify-between items-center text-white/60 hover:text-caro-orange transition-colors text-sm font-sans border-t border-white/10 pt-4" data-cursor="link">
+              GitHub <ArrowUpRight size={14} />
             </a>
-            <a href="#" className="flex justify-between items-center text-white/60 hover:text-white transition-colors text-sm font-sans border-t border-white/10 pt-4" data-cursor="link">
-              YouTube <ArrowUpRight size={14} />
+            <a href="https://codepen.io/Girish-Lade-the-looper" target="_blank" rel="noopener noreferrer" className="flex justify-between items-center text-white/60 hover:text-caro-orange transition-colors text-sm font-sans border-t border-white/10 pt-4" data-cursor="link">
+              CodePen <ArrowUpRight size={14} />
             </a>
           </div>
         </div>
