@@ -1,25 +1,20 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
-import dynamic from "next/dynamic";
+import CustomCursor from "@/components/ui/CustomCursor";
 import "./globals.css";
-
-const CustomCursor = dynamic(() => import("@/components/ui/CustomCursor"), { ssr: false });
 
 const bricolage = Bricolage_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
   variable: "--font-bricolage",
 });
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   variable: "--font-inter",
 });
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
   variable: "--font-jetbrains-mono",
 });
 
