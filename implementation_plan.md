@@ -11,17 +11,7 @@ Ensure the portfolio website is fully responsive, fits perfectly on all mobile d
 
 ### 2. Layout Components
 
-#### [MODIFY] [Footer.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/layout/Footer.tsx)
-
-- Add `relative` to the marquee container to prevent absolute positioned child elements from floating out of bounds.
-- Apply the two-track seamless looping marquee structure using the new keyframe classes.
-- Scale down the massive bottom "GIRISH" text on mobile from `clamp(4.5rem, 16vw, 18rem)` to Tailwind-controlled responsive font size classes (`text-[12vw] sm:text-[14vw] md:text-[clamp(4.5rem,16vw,18rem)]`) and adjust margins (`mx-0 md:-mx-[1%]`).
-
----
-
-### 3. Sections
-
-#### [MODIFY] [HeroSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/HeroSection.tsx)
+n.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/HeroSection.tsx)
 
 - Scale down the massive "GIRISH" hero name text on mobile using Tailwind responsive utility classes (`text-[12vw] sm:text-[14vw] md:text-[clamp(6rem,20vw,22rem)]`) instead of the hardcoded inline style `fontSize: "clamp(6rem, 20vw, 22rem)"`.
 - Adjust character container margins (`mx-0 md:-mx-[2%]`) to keep letters properly aligned on mobile.
