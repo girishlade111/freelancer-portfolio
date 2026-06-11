@@ -11,31 +11,42 @@ export default function DevProcessSection() {
   const containerProps = prefersReduced ? {} : staggerContainer;
 
   return (
-    <motion.section id="process" className="bg-navy-800 section-padding" {...animProps}>
-      <div className="content-max">
-        {/* SECTION HEADER */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-16">
-          <h2 className="section-title">DEV PROCESS</h2>
-          <p className="max-w-sm text-sm text-cream-500 leading-relaxed md:text-right">
-            Every project follows the same disciplined workflow — so nothing falls through the cracks.
-          </p>
+    <motion.section id="process" className="bg-caro-light text-black px-6 md:px-12 xl:px-24 py-24 md:py-32" {...animProps}>
+      
+      {/* HEADER SECTION */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
+        
+        {/* LEFT: Title */}
+        <div className="flex items-start gap-4">
+          <span className="font-sans font-bold text-caro-orange text-sm mt-4 md:mt-8">// 04</span>
+          <h2 className="font-bricolage text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
+            DESIGN PROCESS
+          </h2>
         </div>
 
-        {/* PROCESS CARDS GRID */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
-          variants={containerProps}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          {processSteps.map((step) => (
-            <motion.div key={step.id} variants={prefersReduced ? {} : staggerChild} className="h-full">
-              <ProcessCard step={step} />
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* RIGHT: Description */}
+        <div className="max-w-xs">
+          <p className="font-sans text-sm text-black/60 leading-relaxed md:text-right font-medium">
+            Good design isn't accidental. Every project follows a clear process — so nothing is guesswork, and nothing gets missed.
+          </p>
+        </div>
       </div>
+
+      {/* PROCESS CARDS GRID */}
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        variants={containerProps}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
+        {processSteps.map((step) => (
+          <motion.div key={step.id} variants={prefersReduced ? {} : staggerChild} className="h-full">
+            <ProcessCard step={step} />
+          </motion.div>
+        ))}
+      </motion.div>
+
     </motion.section>
   );
 }
