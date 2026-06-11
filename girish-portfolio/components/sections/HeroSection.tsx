@@ -12,7 +12,7 @@ export default function HeroSection() {
     <section id="hero" className="min-h-screen relative flex flex-col bg-caro-dark pt-20 overflow-hidden">
       
       {/* BACKGROUND IMAGE / CENTER IMAGE */}
-      <div className="absolute inset-0 z-0 flex justify-center lg:justify-end items-center pr-0 lg:pr-32 opacity-60 lg:opacity-100">
+      <div className="relative md:absolute md:inset-0 z-0 flex justify-center lg:justify-end items-center pr-0 lg:pr-32 opacity-100 md:opacity-60 lg:opacity-100 py-6 md:py-0 mt-4 md:mt-0">
         <motion.div 
           className="relative w-[85vw] max-w-[320px] aspect-[3/4] md:w-[600px] xl:w-[700px] md:h-[70vh]"
           initial={prefersReduced ? { opacity: 1 } : { opacity: 0, scale: 0.95 }}
@@ -30,9 +30,9 @@ export default function HeroSection() {
       </div>
 
       {/* LEFT BIO TEXT */}
-      <div className="relative z-10 flex-1 flex items-center px-6 md:px-12 xl:px-24">
+      <div className="relative z-10 flex-none md:flex-1 flex items-center justify-center md:justify-start px-6 md:px-12 xl:px-24 pb-8 md:pb-0">
         <motion.div 
-          className="max-w-sm"
+          className="max-w-sm text-center md:text-left"
           initial={prefersReduced ? { opacity: 1, x: 0 } : { opacity: 0, x: -24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
@@ -44,7 +44,7 @@ export default function HeroSection() {
       </div>
 
       {/* HERO NAME */}
-      <div className="relative z-10 w-full px-6 md:px-12 xl:px-24 overflow-hidden">
+      <div className="relative z-10 w-full px-6 md:px-12 xl:px-24 overflow-hidden mt-auto md:mt-0">
         <h1 
           className="font-bricolage font-extrabold leading-none text-white tracking-tighter flex justify-between uppercase text-[13vw] sm:text-[15vw] md:text-[clamp(6rem,20vw,22rem)] mx-0 md:-mx-[2%]"
         >
