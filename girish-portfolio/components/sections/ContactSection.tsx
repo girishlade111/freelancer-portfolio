@@ -133,8 +133,15 @@ export default function ContactSection() {
           <div className="flex flex-col justify-center gap-12">
             <div>
               <h4 className="font-sans text-[10px] uppercase tracking-widest font-bold text-black mb-2">Email</h4>
-              <a href="mailto:girish@ladestack.in" className="font-sans text-sm text-black/60 hover:text-caro-orange transition-colors" data-cursor="link">
-                girish@ladestack.in
+              <a href="mailto:admin@ladestack.in" className="font-sans text-sm text-black/60 hover:text-caro-orange transition-colors" data-cursor="link">
+                admin@ladestack.in
+              </a>
+            </div>
+
+            <div>
+              <h4 className="font-sans text-[10px] uppercase tracking-widest font-bold text-black mb-2">Website</h4>
+              <a href="https://ladestack.in" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-black/60 hover:text-caro-orange transition-colors" data-cursor="link">
+                ladestack.in
               </a>
             </div>
             
