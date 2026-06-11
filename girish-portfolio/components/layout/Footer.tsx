@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin } from "@/components/ui/Icons";
 import MarqueeStrip from "@/components/ui/MarqueeStrip";
 import { projects } from "@/data/projects";
 
