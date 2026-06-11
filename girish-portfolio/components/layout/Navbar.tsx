@@ -94,9 +94,10 @@ export default function Navbar() {
 
         {/* Social Icons */}
         <div className="flex flex-col items-center gap-6 mt-6 pointer-events-auto">
-          <a href="#" className="text-white/50 hover:text-white transition-colors" data-cursor="link"><Linkedin size={16} /></a>
-          <a href="#" className="text-white/50 hover:text-white transition-colors" data-cursor="link"><Github size={16} /></a>
-          <a href="#" className="text-white/50 hover:text-white transition-colors" data-cursor="link"><Twitter size={16} /></a>
+          <a href="https://www.linkedin.com/in/girish-lade-075bba201/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-caro-orange transition-colors" data-cursor="link"><Linkedin size={16} /></a>
+          <a href="https://github.com/girishlade111" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-caro-orange transition-colors" data-cursor="link"><Github size={16} /></a>
+          <a href="https://www.instagram.com/girish_lade_/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-caro-orange transition-colors" data-cursor="link"><Instagram size={16} /></a>
+          <a href="https://codepen.io/Girish-Lade-the-looper" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-caro-orange transition-colors" data-cursor="link"><Codepen size={16} /></a>
         </div>
 
         {/* Bottom Button */}

@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { Linkedin, Twitter, Github } from "@/components/ui/Icons";
+import { Linkedin, Github, Instagram, Codepen } from "@/components/ui/Icons";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/projects";
 
