@@ -92,10 +92,8 @@ export default function Navbar() {
         {/* MOBILE */}
         <div className="md:hidden">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <button className="text-cream-100 p-2" aria-label="Open menu">
-                <Menu size={24} />
-              </button>
+            <SheetTrigger className="text-cream-100 p-2" aria-label="Open menu">
+              <Menu size={24} />
             </SheetTrigger>
             <SheetContent side="right" className="bg-navy-950 border-l border-gold/10 pt-20">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
