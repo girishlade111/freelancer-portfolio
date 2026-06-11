@@ -31,8 +31,8 @@ export default function Footer() {
       </div>
 
       {/* MARQUEE TEXT */}
-      <div className="w-full overflow-hidden flex border-y border-white/10 py-6 mb-20 whitespace-nowrap">
-        <div className="animate-marquee inline-flex gap-8 items-center font-bricolage text-5xl md:text-7xl font-bold tracking-tighter text-white">
+      <div className="relative flex overflow-x-hidden w-full border-y border-white/10 py-6 mb-20">
+        <div className="animate-marquee flex shrink-0 whitespace-nowrap gap-8 items-center font-bricolage text-5xl md:text-7xl font-bold tracking-tighter text-white pr-8">
           <span>GET IN TOUCH</span>
           <span className="text-caro-orange">•</span>
           <span>GET IN TOUCH</span>
@@ -45,7 +45,7 @@ export default function Footer() {
           <span className="text-caro-orange">•</span>
         </div>
         {/* Duplicate for seamless loop */}
-        <div className="animate-marquee inline-flex gap-8 items-center font-bricolage text-5xl md:text-7xl font-bold tracking-tighter text-white ml-8 absolute top-0">
+        <div className="animate-marquee flex shrink-0 whitespace-nowrap gap-8 items-center font-bricolage text-5xl md:text-7xl font-bold tracking-tighter text-white pr-8">
           <span>GET IN TOUCH</span>
           <span className="text-caro-orange">•</span>
           <span>GET IN TOUCH</span>
@@ -102,10 +102,9 @@ export default function Footer() {
       </div>
 
       {/* HUGE BOTTOM TEXT */}
-      <div className="w-full px-6 md:px-12 xl:px-24 mb-8">
+      <div className="w-full px-6 md:px-12 xl:px-24 mb-8 overflow-hidden">
         <h1 
-          className="font-bricolage font-extrabold leading-none text-white tracking-tighter flex justify-between uppercase"
-          style={{ fontSize: "clamp(4.5rem, 16vw, 18rem)", margin: "0 -1%" }}
+          className="font-bricolage font-extrabold leading-none text-white tracking-tighter flex justify-between uppercase text-[12vw] sm:text-[14vw] md:text-[clamp(4.5rem,16vw,18rem)] mx-0 md:-mx-[1%]"
         >
           {"GIRISH".split("").map((char, index) => (
             <span key={index} className="inline-block opacity-20 hover:opacity-100 transition-opacity duration-300">
