@@ -1,126 +1,117 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu } from "lucide-react";
+import { Menu, ArrowUpRight } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Linkedin, Twitter, Github } from "@/components/ui/Icons";
 
 const NAV_LINKS = [
+  { name: "About Me", href: "#about" },
   { name: "Projects", href: "#projects" },
   { name: "Skills", href: "#skills" },
   { name: "Process", href: "#process" },
+  { name: "Background", href: "#background" },
   { name: "Testimonials", href: "#testimonials" },
   { name: "FAQ", href: "#faq" },
 ];
 
 export default function Navbar() {
   const { scrollY } = useScroll();
-  const [hidden, setHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    
-    if (latest > previous && latest > 150) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
-
-    if (latest > 60) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
+    setIsScrolled(latest > 50);
   });
 
   return (
-    <motion.nav
-      variants={{
-        visible: { y: 0 },
-        hidden: { y: "-100%" },
-      }}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 h-16 transition-colors duration-300 ${
-        isScrolled
-          ? "bg-navy-900/90 backdrop-blur-md border-b border-gold/10"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="h-full px-6 md:px-12 lg:px-20 xl:px-28 mx-auto flex items-center justify-between">
-        
-        {/* LEFT */}
-        <div className="flex items-baseline">
+    <>
+      {/* TOP NAV */}
+      <motion.nav
+        className={`fixed top-0 left-0 right-0 z-50 h-20 transition-colors duration-300 flex items-center justify-between px-6 md:px-12 ${
+          isScrolled ? "bg-caro-dark/90 backdrop-blur-md border-b border-white/5" : "bg-transparent"
+        }`}
+      >
+        {/* LEFT: LOGO */}
+        <div>
           <a
             href="#"
-            className="font-bricolage font-bold text-sm tracking-[0.2em] text-cream-100"
+            className="font-sans font-bold text-lg tracking-widest text-white uppercase"
             data-cursor="link"
           >
-            GIRISH.
+            GIRISH
           </a>
-          <span className="w-1.5 h-1.5 rounded-full bg-gold-600 inline-block ml-1" />
         </div>
 
-        {/* CENTER */}
-        <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="relative font-inter text-sm text-cream-500 hover:text-gold-600 transition-colors duration-200 group"
+        {/* RIGHT: MENU */}
+        <div>
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger 
+              className="flex items-center gap-3 text-white hover:text-caro-orange transition-colors"
+              aria-label="Open menu"
               data-cursor="link"
             >
-              {link.name}
-              <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-gold-600 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out" />
-            </a>
-          ))}
-        </div>
-
-        {/* RIGHT */}
-        <div className="hidden md:block">
-          <a
-            href="#contact"
-            className="border border-gold-600 text-gold-600 text-sm font-medium tracking-widest px-5 py-2 uppercase hover:bg-gold-600 hover:text-navy-900 transition-all duration-300"
-            data-cursor="link"
-          >
-            Hire Me
-          </a>
-        </div>
-
-        {/* MOBILE */}
-        <div className="md:hidden">
-          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger className="text-cream-100 p-2" aria-label="Open menu">
-              <Menu size={24} />
+              <span className="font-sans text-xs font-semibold tracking-[0.2em] uppercase hidden sm:block">
+                Menu
+              </span>
+              <div className="grid grid-cols-3 gap-1 opacity-80">
+                {[...Array(9)].map((_, i) => (
+                  <span key={i} className="w-1 h-1 bg-current rounded-full" />
+                ))}
+              </div>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-navy-950 border-l border-gold/10 pt-20">
+            <SheetContent side="right" className="bg-caro-dark border-l border-white/10 pt-20">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <SheetDescription className="sr-only">Mobile navigation links</SheetDescription>
-              <div className="flex flex-col gap-8 items-center">
+              <div className="flex flex-col gap-8 items-start px-6">
                 {NAV_LINKS.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="font-bricolage font-bold text-2xl text-cream-100 hover:text-gold-600 transition-colors"
+                    className="font-bricolage font-bold text-3xl text-white hover:text-caro-orange transition-colors"
                   >
                     {link.name}
                   </a>
                 ))}
-                <a
-                  href="#contact"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="mt-8 border border-gold-600 text-gold-600 font-bold tracking-widest px-8 py-3 uppercase hover:bg-gold-600 hover:text-navy-900 transition-all duration-300"
-                >
-                  Hire Me
-                </a>
               </div>
             </SheetContent>
           </Sheet>
         </div>
+      </motion.nav>
+
+      {/* RIGHT FLOATING SIDEBAR (Desktop Only) */}
+      <div className="fixed right-0 top-0 bottom-0 z-40 hidden xl:flex flex-col justify-center items-center w-24 pointer-events-none">
+        
+        {/* Follow Text & Line */}
+        <div className="flex flex-col items-center gap-6 mt-16 pointer-events-auto">
+          <div className="text-[10px] text-white/50 tracking-[0.2em] uppercase -rotate-90 origin-center whitespace-nowrap mb-6">
+            Follow
+          </div>
+          <div className="w-[1px] h-12 bg-white/20" />
+        </div>
+
+        {/* Social Icons */}
+        <div className="flex flex-col items-center gap-6 mt-6 pointer-events-auto">
+          <a href="#" className="text-white/50 hover:text-white transition-colors" data-cursor="link"><Linkedin size={16} /></a>
+          <a href="#" className="text-white/50 hover:text-white transition-colors" data-cursor="link"><Github size={16} /></a>
+          <a href="#" className="text-white/50 hover:text-white transition-colors" data-cursor="link"><Twitter size={16} /></a>
+        </div>
+
+        {/* Bottom Button */}
+        <div className="mt-auto mb-12 pointer-events-auto">
+          <a
+            href="#contact"
+            className="flex items-center gap-2 bg-white text-black px-4 py-3 text-[10px] font-bold tracking-widest uppercase hover:bg-caro-orange hover:text-white transition-colors"
+            style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+            data-cursor="link"
+          >
+            Get in touch
+            <ArrowUpRight size={14} className="rotate-90" />
+          </a>
+        </div>
       </div>
-    </motion.nav>
+    </>
   );
 }
