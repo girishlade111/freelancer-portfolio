@@ -18,7 +18,7 @@ export default function FAQSection() {
         {/* LEFT: Title */}
         <div className="flex items-start gap-4">
           <span className="font-sans font-bold text-caro-orange text-sm mt-4 md:mt-8">// 07</span>
-          <h2 className="font-bricolage text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
+          <h2 className="font-bricolage text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter uppercase leading-none">
             FAQS
           </h2>
         </div>
@@ -56,7 +56,7 @@ function FAQItem({ faq, index }: { faq: { question: string; answer: string }; in
           <span className="font-bricolage font-bold text-caro-orange text-lg">
             {index < 10 ? `0${index}` : index}
           </span>
-          <h3 className="font-sans font-medium text-lg md:text-xl text-black">
+          <h3 className="font-sans font-medium text-base sm:text-lg md:text-xl text-black">
             {faq.question}
           </h3>
         </div>
@@ -78,7 +78,7 @@ function FAQItem({ faq, index }: { faq: { question: string; answer: string }; in
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="font-sans text-sm text-black/60 leading-relaxed pt-4 pl-12 pr-12">
+            <p className="font-sans text-sm text-black/60 leading-relaxed pt-4 pl-8 md:pl-12 pr-4 md:pr-12">
               {faq.answer}
             </p>
           </motion.div>
