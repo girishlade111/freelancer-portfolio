@@ -1,11 +1,15 @@
 import React from "react";
 
-export function Github(props: React.SVGProps<SVGSVGElement>) {
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  size?: number | string;
+}
+
+export function Github({ size = 24, ...props }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={24}
-      height={24}
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -19,12 +23,12 @@ export function Github(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function Twitter(props: React.SVGProps<SVGSVGElement>) {
+export function Twitter({ size = 24, ...props }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={24}
-      height={24}
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -38,12 +42,12 @@ export function Twitter(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function Linkedin(props: React.SVGProps<SVGSVGElement>) {
+export function Linkedin({ size = 24, ...props }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={24}
-      height={24}
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
