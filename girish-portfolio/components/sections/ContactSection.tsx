@@ -134,7 +134,7 @@ export default function ContactSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <Image
-              src="https://placehold.co/600x800/FC7200/ffffff?text=Contact"
+              src="/images/contact-image.png"
               alt="Contact"
               fill
               className="object-cover"

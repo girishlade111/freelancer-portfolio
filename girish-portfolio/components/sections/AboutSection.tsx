@@ -75,7 +75,7 @@ export default function AboutSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <Image
-            src="https://placehold.co/800x600/3A4F3A/ffffff?text=About+Image"
+            src="/images/about-image.png"
             alt="About"
             fill
             className="object-cover"

@@ -83,7 +83,7 @@ export default function BackgroundSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <Image
-              src="https://placehold.co/600x800/FC7200/ffffff?text=Background"
+              src="/images/background-image.png"
               alt="Background"
               fill
               className="object-cover"

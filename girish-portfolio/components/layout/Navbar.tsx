@@ -1,29 +1,40 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu, ArrowUpRight } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { Linkedin, Github, Instagram, Codepen } from "@/components/ui/Icons";
+import Image from "next/image";
 
-const NAV_LINKS = [
-  { name: "About Me", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Skills", href: "#skills" },
-  { name: "Process", href: "#process" },
-  { name: "Background", href: "#background" },
-  { name: "Testimonials", href: "#testimonials" },
-  { name: "FAQ", href: "#faq" },
+const OVERLAY_LINKS = [
+  { name: "HOME", href: "#hero" },
+  { name: "ABOUT", href: "#about" },
+  { name: "PROJECTS", href: "#projects" },
+  { name: "CONTACT", href: "#contact" },
 ];
 
 export default function Navbar() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50);
   });
+
+  const getMenuImage = (hovered: string | null) => {
+    switch (hovered) {
+      case "ABOUT":
+        return "/images/menu-about.png";
+      case "PROJECTS":
+        return "/images/menu-home.png";
+      case "CONTACT":
+        return "/images/menu-contact.png";
+      default:
+        return "/images/menu-home.png";
+    }
+  };
 
   return (
     <>
@@ -44,42 +55,176 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* RIGHT: MENU */}
+        {/* RIGHT: MENU BUTTON */}
         <div>
-          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger 
-              className="flex items-center gap-3 text-white hover:text-caro-orange transition-colors"
-              aria-label="Open menu"
-              data-cursor="link"
+          <motion.button 
+            onClick={() => setIsMenuOpen(true)}
+            className="flex items-center gap-3 text-white hover:text-caro-orange transition-colors cursor-pointer"
+            aria-label="Open menu"
+            data-cursor="link"
+            whileHover="hover"
+          >
+            <span className="font-sans text-xs font-semibold tracking-[0.2em] uppercase hidden sm:block">
+              Menu
+            </span>
+            <motion.div 
+              className="grid grid-cols-3 gap-1 opacity-80"
+              variants={{
+                hover: { rotate: 90, scale: 1.1 }
+              }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <span className="font-sans text-xs font-semibold tracking-[0.2em] uppercase hidden sm:block">
-                Menu
-              </span>
-              <div className="grid grid-cols-3 gap-1 opacity-80">
-                {[...Array(9)].map((_, i) => (
-                  <span key={i} className="w-1 h-1 bg-current rounded-full" />
-                ))}
-              </div>
-            </SheetTrigger>
-            <SheetContent side="right" className="bg-caro-dark border-l border-white/10 pt-20">
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <SheetDescription className="sr-only">Mobile navigation links</SheetDescription>
-              <div className="flex flex-col gap-8 items-start px-6">
-                {NAV_LINKS.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="font-bricolage font-bold text-3xl text-white hover:text-caro-orange transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-              </div>
-            </SheetContent>
-          </Sheet>
+              {[...Array(9)].map((_, i) => (
+                <motion.span 
+                  key={i} 
+                  className="w-1 h-1 bg-current rounded-full" 
+                  variants={{
+                    hover: { 
+                      scale: i === 4 ? 0.6 : 1.2, // shrink center dot, scale outer dots
+                      backgroundColor: "#FC7200" 
+                    }
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              ))}
+            </motion.div>
+          </motion.button>
         </div>
       </motion.nav>
+
+      {/* FULL-SCREEN OVERLAY MENU */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: "-100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 bg-caro-dark z-[100] flex flex-col justify-between p-6 md:p-12 xl:p-20 overflow-y-auto"
+          >
+            {/* TOP BAR */}
+            <div className="flex justify-between items-center w-full">
+              <a 
+                href="#" 
+                className="font-sans font-bold text-lg tracking-widest text-white uppercase" 
+                onClick={() => setIsMenuOpen(false)}
+              >
+                GIRISH
+              </a>
+              <motion.button 
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-3 text-white hover:text-caro-orange transition-colors cursor-pointer"
+                aria-label="Close menu"
+                whileHover="hover"
+              >
+                <span className="font-sans text-xs font-semibold tracking-[0.2em] uppercase">
+                  Close
+                </span>
+                <motion.div 
+                  className="grid grid-cols-3 gap-1 opacity-80 rotate-45 scale-110"
+                  variants={{
+                    hover: { rotate: 135 }
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  {[...Array(9)].map((_, i) => (
+                    <motion.span 
+                      key={i} 
+                      className="w-1 h-1 bg-current rounded-full" 
+                      variants={{
+                        hover: {
+                          scale: i % 2 === 0 ? 0.6 : 1.2, // checkerboard scale on hover
+                          backgroundColor: "#FC7200"
+                        }
+                      }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  ))}
+                </motion.div>
+              </motion.button>
+            </div>
+
+            {/* LINKS AREA */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto w-full max-w-[1400px] mx-auto py-12">
+              {/* Left links list */}
+              <div className="lg:col-span-7 flex flex-col gap-6 items-start">
+                {OVERLAY_LINKS.map((item, index) => {
+                  const isHovered = hoveredLink === item.name;
+                  const isAnyHovered = hoveredLink !== null;
+                  return (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      onMouseEnter={() => setHoveredLink(item.name)}
+                      onMouseLeave={() => setHoveredLink(null)}
+                      className="group flex items-baseline relative"
+                    >
+                      <motion.span
+                        className="font-bricolage font-extrabold text-5xl sm:text-6xl md:text-8xl lg:text-[7vw] leading-none uppercase tracking-tighter transition-all duration-300"
+                        style={{
+                          color: isHovered ? "var(--color-caro-orange)" : "white",
+                          opacity: isAnyHovered && !isHovered ? 0.3 : 1
+                        }}
+                      >
+                        {item.name}
+                      </motion.span>
+                      <span className="font-mono text-xs md:text-sm text-white/30 ml-2 align-super font-normal">
+                        0{index + 1}
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+
+              {/* Right image card */}
+              <div className="lg:col-span-5 hidden lg:flex justify-center xl:justify-end">
+                <div className="relative aspect-[4/5] w-full max-w-[380px] xl:max-w-[420px] overflow-hidden bg-white/5 shadow-2xl border border-white/5">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={hoveredLink || "HOME"}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.35, ease: "easeOut" }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={getMenuImage(hoveredLink)}
+                        alt={hoveredLink || "Home Menu Scene"}
+                        fill
+                        className="object-cover"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
+
+            {/* BOTTOM BAR */}
+            <div className="flex flex-wrap justify-between items-center w-full pt-8 border-t border-white/10 gap-6">
+              <div className="flex flex-wrap gap-8 md:gap-12">
+                <a href="https://www.linkedin.com/in/girish-lade-075bba201/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-white/60 hover:text-white transition-colors tracking-widest font-semibold uppercase">
+                  LinkedIn <ArrowUpRight size={14} />
+                </a>
+                <a href="https://www.instagram.com/girish_lade_/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-white/60 hover:text-white transition-colors tracking-widest font-semibold uppercase">
+                  Instagram <ArrowUpRight size={14} />
+                </a>
+                <a href="https://github.com/girishlade111" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-white/60 hover:text-white transition-colors tracking-widest font-semibold uppercase">
+                  GitHub <ArrowUpRight size={14} />
+                </a>
+                <a href="https://codepen.io/Girish-Lade-the-looper" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-white/60 hover:text-white transition-colors tracking-widest font-semibold uppercase">
+                  CodePen <ArrowUpRight size={14} />
+                </a>
+              </div>
+              <div className="text-[10px] text-white/40 tracking-widest uppercase font-semibold">
+                © {new Date().getFullYear()} Girish Lade
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* RIGHT FLOATING SIDEBAR (Desktop Only) */}
       <div className="fixed right-0 top-0 bottom-0 z-40 hidden xl:flex flex-col justify-center items-center w-24 pointer-events-none">

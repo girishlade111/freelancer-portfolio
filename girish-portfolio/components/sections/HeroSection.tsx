@@ -20,7 +20,7 @@ export default function HeroSection() {
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
           <Image
-            src="https://placehold.co/800x1200/222222/FC7200?text=Portrait"
+            src="/images/hero-portrait.png"
             alt="Portrait"
             fill
             priority
