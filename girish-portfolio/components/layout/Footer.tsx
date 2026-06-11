@@ -4,10 +4,33 @@ import Image from "next/image";
 import { Linkedin, Github, Instagram, Codepen } from "@/components/ui/Icons";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/projects";
+import { motion, useReducedMotion } from "framer-motion";
 
 export default function Footer() {
+  const prefersReduced = useReducedMotion();
+
+  const footerAnim = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-60px" },
+    transition: { duration: 0.8, ease: "easeOut" }
+  };
+
+  const nameStagger = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.05 } }
+  };
+
+  const nameChar = {
+    hidden: { y: "100%", opacity: 0 },
+    visible: { y: "0%", opacity: 0.2, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
   return (
-    <footer className="bg-caro-dark text-white relative overflow-hidden flex flex-col justify-between pt-20">
+    <motion.footer 
+      className="bg-caro-dark text-white relative overflow-hidden flex flex-col justify-between pt-20"
+      {...(prefersReduced ? {} : footerAnim)}
+    >
       
       {/* "MADE WITH INTENT" Image Grid Area */}
       <div className="w-full px-6 md:px-12 xl:px-24 mb-32 relative">
@@ -18,14 +41,21 @@ export default function Footer() {
         {/* Placeholder for the masonry grid from the image */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 opacity-50 pointer-events-none">
           {projects.slice(0, 4).map((project, i) => (
-            <div key={project.id} className={`relative overflow-hidden bg-white/5 ${i === 1 || i === 3 ? "aspect-[3/4]" : "aspect-[4/3] mt-8"}`}>
+            <motion.div 
+              key={project.id} 
+              className={`relative overflow-hidden bg-white/5 ${i === 1 || i === 3 ? "aspect-[3/4]" : "aspect-[4/3] mt-8"}`}
+              initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+              whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: "easeOut" }}
+            >
               <Image
                 src={project.image.replace("112240", "222222").replace("C9A84C", "FC7200")}
                 alt={project.title}
                 fill
                 className="object-cover grayscale mix-blend-luminosity"
               />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -103,17 +133,26 @@ export default function Footer() {
 
       {/* HUGE BOTTOM TEXT */}
       <div className="w-full px-6 md:px-12 xl:px-24 mb-8 overflow-hidden">
-        <h1 
+        <motion.h1 
           className="font-bricolage font-extrabold leading-none text-white tracking-tighter flex justify-between uppercase text-[12vw] sm:text-[14vw] md:text-[clamp(4.5rem,16vw,18rem)] mx-0 md:-mx-[1%]"
+          variants={prefersReduced ? {} : nameStagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20px" }}
         >
           {"GIRISH".split("").map((char, index) => (
-            <span key={index} className="inline-block opacity-20 hover:opacity-100 transition-opacity duration-300">
-              {char}
+            <span key={index} className="inline-block overflow-hidden">
+              <motion.span 
+                className="inline-block hover:opacity-100 transition-opacity duration-300"
+                variants={prefersReduced ? {} : nameChar}
+              >
+                {char}
+              </motion.span>
             </span>
           ))}
-        </h1>
+        </motion.h1>
       </div>
 
-    </footer>
+    </motion.footer>
   );
 }
