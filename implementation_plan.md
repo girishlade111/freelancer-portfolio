@@ -7,20 +7,6 @@ Ensure the portfolio website is fully responsive, fits perfectly on all mobile d
 > [!IMPORTANT]
 > All changes are ring-fenced to mobile and tablet breakpoints using Tailwind CSS's responsive prefixes (e.g., base classes for mobile, overridden by `md:`, `lg:`, `xl:` for desktop). The desktop view remains completely untouched.
 
-## Proposed Changes
-
-Scale down the header "DESIGN PROCESS" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`).
-
-- Update `ProcessCard.tsx` padding on mobile (`p-6 sm:p-10 md:p-12`) to afford more horizontal reading space.
-
-#### [MODIFY] [BackgroundSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/BackgroundSection.tsx)
-
-- Align tab buttons horizontally on mobile with horizontal scrolling (`flex-row overflow-x-auto pb-4 lg:flex-col lg:pb-0 lg:overflow-x-visible`) and vertical on desktop.
-- Center the portrait image on mobile (`mx-auto md:mx-0`).
-- Scale down the header "BACKGROUND" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`).
-
-#### [MODIFY] [TestimonialsSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/TestimonialsSection.tsx)
-
 - Adjust quotes font size on mobile (`text-2xl sm:text-3xl md:text-4xl`).
 - Make testimonial quote min-height responsive (`min-h-[220px] md:min-h-[300px]`) to reduce excessive whitespace.
 - Scale down the header "TESTIMONIALS" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`).
