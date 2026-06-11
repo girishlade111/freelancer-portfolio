@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { skills } from "@/data/skills";
-import { sectionEntry } from "@/lib/animations";
+import { sectionEntry, staggerContainer, staggerChild } from "@/lib/animations";
 
 export default function SkillsSection() {
   const prefersReduced = useReducedMotion();
@@ -31,11 +31,18 @@ export default function SkillsSection() {
       </div>
 
       {/* SKILLS LIST */}
-      <div className="flex flex-col">
+      <motion.div 
+        className="flex flex-col"
+        variants={prefersReduced ? {} : staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
         {skills.map((skill, index) => (
-          <div 
+          <motion.div 
             key={skill.id} 
             className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 py-12 ${index !== skills.length - 1 ? 'border-b border-black/10' : ''}`}
+            variants={prefersReduced ? {} : staggerChild}
           >
             
             {/* LEFT: Title */}
@@ -67,9 +74,9 @@ export default function SkillsSection() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
     </motion.section>
   );

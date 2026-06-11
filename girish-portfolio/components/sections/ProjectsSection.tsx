@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ui/ProjectCard";
 import { ArrowUpRight } from "lucide-react";
-import { sectionEntry } from "@/lib/animations";
+import { sectionEntry, staggerContainer, staggerChild } from "@/lib/animations";
 
 export default function ProjectsSection() {
   const prefersReduced = useReducedMotion();
@@ -41,7 +41,13 @@ export default function ProjectsSection() {
       </div>
 
       {/* GRID LAYOUT */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-24 gap-y-16 md:gap-y-32">
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-24 gap-y-16 md:gap-y-32"
+        variants={prefersReduced ? {} : staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
         {projects.map((project, index) => {
           
           let spanClass = "col-span-1";
@@ -64,12 +70,16 @@ export default function ProjectsSection() {
           }
 
           return (
-            <div key={project.id} className={`${spanClass} ${mtClass}`}>
+            <motion.div 
+              key={project.id} 
+              className={`${spanClass} ${mtClass}`}
+              variants={prefersReduced ? {} : staggerChild}
+            >
               <ProjectCard project={project} aspectClass={aspectClass} />
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
     </motion.section>
   );

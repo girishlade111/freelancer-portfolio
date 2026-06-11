@@ -58,15 +58,16 @@ export default function BackgroundSection() {
         {/* LEFT: TABS */}
         <div className="lg:col-span-3 flex flex-row lg:flex-col gap-6 lg:gap-4 overflow-x-auto pb-4 lg:pb-0 scrollbar-none whitespace-nowrap border-b border-black/5 lg:border-none">
           {tabs.map((tab) => (
-            <button
+            <motion.button
               key={tab}
               onClick={() => setActiveTab(tab)}
+              whileTap={{ scale: 0.98 }}
               className={`text-left font-bricolage text-xl md:text-2xl font-semibold transition-colors duration-300 shrink-0 ${
                 activeTab === tab ? "text-black" : "text-black/30 hover:text-black/60"
               }`}
             >
               {tab}
-            </button>
+            </motion.button>
           ))}
         </div>
 
@@ -74,24 +75,30 @@ export default function BackgroundSection() {
         <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-12">
           
           {/* IMAGE */}
-          <div className="relative aspect-[3/4] w-full max-w-sm mx-auto md:mx-0 overflow-hidden bg-black">
+          <motion.div 
+            className="relative aspect-[3/4] w-full max-w-sm mx-auto md:mx-0 overflow-hidden bg-black"
+            initial={prefersReduced ? {} : { opacity: 0, scale: 0.95 }}
+            whileInView={prefersReduced ? {} : { opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <Image
               src="https://placehold.co/600x800/FC7200/ffffff?text=Background"
               alt="Background"
               fill
               className="object-cover"
             />
-          </div>
+          </motion.div>
 
           {/* LIST ITEMS */}
           <div className="flex flex-col justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
                 className="flex flex-col"
               >
                 {content[activeTab as keyof typeof content].map((item, i) => (
