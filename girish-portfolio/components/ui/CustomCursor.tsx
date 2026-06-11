@@ -67,7 +67,7 @@ export default function CustomCursor() {
       y: "-50%",
       opacity: 1,
       scale: 1,
-      backgroundColor: "transparent",
+      backgroundColor: "rgba(0, 0, 0, 0)",
       border: "1px solid rgba(201, 168, 76, 0.3)",
       mixBlendMode: "difference" as const,
     },
