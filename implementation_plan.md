@@ -11,17 +11,6 @@ Ensure the portfolio website is fully responsive, fits perfectly on all mobile d
 - Make testimonial quote min-height responsive (`min-h-[220px] md:min-h-[300px]`) to reduce excessive whitespace.
 - Scale down the header "TESTIMONIALS" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`).
 
-#### [MODIFY] [FAQSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/FAQSection.tsx)
-
-- Scale down the header "FAQS" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`).
-- Improve FAQ question and answer spacing/text size on mobile (`text-base sm:text-lg md:text-xl` for questions, `pl-8 md:pl-12 pr-4 md:pr-12` for answers).
-
-#### [MODIFY] [ContactSection.tsx](file:///c:/Users/Girish%20Lade/OneDrive/Desktop/freelancer-portfolio/girish-portfolio/components/sections/ContactSection.tsx)
-
-- Scale down the header "GET IN TOUCH" on mobile (`text-5xl sm:text-6xl md:text-8xl lg:text-9xl`).
-
----
-
 ## Verification Plan
 
 ### Automated Verification
