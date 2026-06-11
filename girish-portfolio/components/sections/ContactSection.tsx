@@ -62,7 +62,12 @@ export default function ContactSection() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
         
         {/* LEFT COLUMN: FORM */}
-        <div>
+        <motion.div
+          initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+          whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <h3 className="font-bricolage text-4xl md:text-5xl font-bold tracking-tight mb-12">
             Say hello!
           </h3>
@@ -116,21 +121,33 @@ export default function ContactSection() {
               </motion.button>
             </form>
           )}
-        </div>
+        </motion.div>
 
         {/* RIGHT COLUMN: IMAGE & INFO */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
           
-          <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
+          <motion.div 
+            className="relative aspect-[3/4] w-full overflow-hidden bg-black"
+            initial={prefersReduced ? {} : { opacity: 0, scale: 0.95 }}
+            whileInView={prefersReduced ? {} : { opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <Image
               src="https://placehold.co/600x800/FC7200/ffffff?text=Contact"
               alt="Contact"
               fill
               className="object-cover"
             />
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col justify-center gap-12">
+          <motion.div 
+            className="flex flex-col justify-center gap-12"
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+            whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+          >
             <div>
               <h4 className="font-sans text-[10px] uppercase tracking-widest font-bold text-black mb-2">Email</h4>
               <a href="mailto:admin@ladestack.in" className="font-sans text-sm text-black/60 hover:text-caro-orange transition-colors" data-cursor="link">
@@ -158,7 +175,7 @@ export default function ContactSection() {
                 (808) 456 7890
               </a>
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>

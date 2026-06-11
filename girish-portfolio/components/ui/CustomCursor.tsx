@@ -68,7 +68,7 @@ export default function CustomCursor() {
       opacity: 1,
       scale: 1,
       backgroundColor: "rgba(0, 0, 0, 0)",
-      border: "1px solid rgba(201, 168, 76, 0.3)",
+      border: "1px solid rgba(252, 114, 0, 0.3)",
       mixBlendMode: "difference" as const,
     },
     link: {
@@ -78,8 +78,8 @@ export default function CustomCursor() {
       y: "-50%",
       opacity: 1,
       scale: 1.5,
-      backgroundColor: "rgba(201, 168, 76, 0.15)",
-      border: "1px solid rgba(201, 168, 76, 1)",
+      backgroundColor: "rgba(252, 114, 0, 0.15)",
+      border: "1px solid rgba(252, 114, 0, 1)",
       mixBlendMode: "normal" as const,
     },
     view: {
@@ -89,8 +89,8 @@ export default function CustomCursor() {
       y: "-50%",
       opacity: 1,
       scale: 1,
-      backgroundColor: "rgba(11, 22, 40, 0.9)",
-      border: "1px solid rgba(201, 168, 76, 0.5)",
+      backgroundColor: "rgba(17, 17, 17, 0.9)",
+      border: "1px solid rgba(252, 114, 0, 0.5)",
       mixBlendMode: "normal" as const,
     },
   };
@@ -109,13 +109,13 @@ export default function CustomCursor() {
         transition={{ type: "tween", duration: 0.15, ease: "easeOut" }}
       >
         {cursorState === "view" && (
-          <span className="font-mono text-[10px] text-gold-600 uppercase tracking-widest">
+          <span className="font-sans text-[10px] text-caro-orange uppercase tracking-widest font-bold">
             View
           </span>
         )}
       </motion.div>
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[101] w-2 h-2 bg-gold-600 rounded-full"
+        className="fixed top-0 left-0 pointer-events-none z-[101] w-2 h-2 bg-caro-orange rounded-full"
         style={{
           x: smoothX,
           y: smoothY,
