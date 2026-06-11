@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, ArrowUpRight } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Linkedin, Twitter, Github } from "@/components/ui/Icons";
+import { Linkedin, Github, Instagram, Codepen } from "@/components/ui/Icons";
 
 const NAV_LINKS = [
   { name: "About Me", href: "#about" },
