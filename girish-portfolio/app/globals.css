@@ -144,10 +144,44 @@
   * {
     @apply border-border outline-ring/50;
   }
+  *:focus-visible {
+    outline: 2px solid var(--color-gold-600);
+    outline-offset: 2px;
+  }
   body {
     @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+    background-color: var(--color-navy-900);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-navy-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-600);
+  border-radius: 2px;
+}
+
+@layer utilities {
+  .section-title {
+    @apply font-bricolage font-bold uppercase tracking-widest text-cream-100;
+    font-size: clamp(2.2rem, 4.5vw, 5rem);
+    line-height: 1;
+  }
+
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-20 xl:px-28 py-24 md:py-32;
+  }
+
+  .content-max {
+    @apply max-w-screen-xl mx-auto;
   }
 }
