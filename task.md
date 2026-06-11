@@ -1,30 +1,28 @@
-# Task List
+# Tasks - Mobile Responsiveness Refinement
 
-- `[x]` Review plan
-- `[/]` Verify existing Next.js bootstrap and dependencies
-- `[ ]` Setup Tailwind configuration & Global CSS variables
-- `[ ]` Configure Fonts in `app/layout.tsx`
-- `[ ]` Create Data Files
-  - `[ ]` `projects.ts`
-  - `[ ]` `skills.ts`
-  - `[ ]` `process.ts`
-  - `[ ]` `testimonials.ts`
-  - `[ ]` `faqs.ts`
-- `[ ]` Create Shared UI Components & Utilities
-  - `[ ]` `lib/utils.ts` and `lib/animations.ts`
-  - `[ ]` `CustomCursor.tsx`
-  - `[ ]` `ScrollIndicator.tsx`
-  - `[ ]` `MarqueeStrip.tsx`
-- `[ ]` Build Layout
-  - `[ ]` `Navbar.tsx`
-  - `[ ]` `Footer.tsx`
-- `[ ]` Build Sections
-  - `[ ]` `HeroSection.tsx`
-  - `[ ]` `ProjectsSection.tsx` & `ProjectCard.tsx`
-  - `[ ]` `SkillsSection.tsx` & `SkillAccordionItem.tsx`
-  - `[ ]` `DevProcessSection.tsx` & `ProcessCard.tsx`
-  - `[ ]` `TestimonialsSection.tsx`
-  - `[ ]` `FAQSection.tsx`
-  - `[ ]` `ContactSection.tsx`
-- `[ ]` Assemble `app/page.tsx`
-- `[ ]` Verify functionality & responsive design
+- `[x]` **Global Styles & Animations**
+  - `[x]` Define marquee keyframes and utility classes in `globals.css`
+- `[x]` **Layout Components**
+  - `[x]` Refactor `Footer.tsx` marquee container and responsive typography sizing
+- `[x]` **Hero Section**
+  - `[x]` Make "GIRISH" title scale responsively using Tailwind classes in `HeroSection.tsx`
+  - `[x]` Make portrait image scaling responsive
+- `[x]` **Other Content Sections**
+  - `[x]` Fix header sizes (`text-5xl md:text-8xl...`) across all sections: `AboutSection.tsx`, `ProjectsSection.tsx`, `SkillsSection.tsx`, `DevProcessSection.tsx`, `BackgroundSection.tsx`, `TestimonialsSection.tsx`, `FAQSection.tsx`, `ContactSection.tsx`
+  - `[x]` Make stats text sizes and image alignment responsive in `AboutSection.tsx`
+  - `[x]` Adjust padding in `ProcessCard.tsx` for smaller viewports
+  - `[x]` Refactor tab layout to be horizontally scrollable on mobile in `BackgroundSection.tsx`
+  - `[x]` Adjust quotes size and min-height in `TestimonialsSection.tsx`
+  - `[x]` Tweak questions text size and answer margins in `FAQSection.tsx`
+- `[x]` **Framer Motion Animations Integration**
+  - `[x]` Add stagger animations to `AboutSection`, `ProjectsSection`, `SkillsSection`, and `FAQSection`
+  - `[x]` Animate image scaling in `AboutSection`, `BackgroundSection`, and `ContactSection`
+  - `[x]` Convert `Footer` to `motion.footer` and stagger bottom name characters
+  - `[x]` Align custom cursor animations and borders with the orange/black theme
+- `[x]` **Full-Screen Menu & Custom Images**
+  - `[x]` Implement bento menu toggle button animation
+  - `[x]` Create overlay links and dynamic preview image swaps (no Framer branding)
+  - `[x]` Generate thematic assets for Hero, About, Background, Contact, and Menu sections
+- `[x]` **Verification**
+  - `[x]` Run build to ensure TypeScript compiles correctly
+  - `[x]` Verify viewport responsiveness and zero horizontal scroll on mobile using browser subagent
