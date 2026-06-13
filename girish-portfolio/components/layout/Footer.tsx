@@ -114,16 +114,16 @@ export default function Footer() {
         {/* RIGHT: Page Links */}
         <div>
           <div className="flex flex-col gap-4 max-w-[200px] md:ml-auto">
-            <a href="#hero" className="flex justify-between items-center text-white hover:text-caro-orange transition-colors text-sm font-sans font-bold" data-cursor="link">
+            <a href="/" className="flex justify-between items-center text-white hover:text-caro-orange transition-colors text-sm font-sans font-bold" data-cursor="link">
               HOME <span className="text-white/40 font-normal">01</span>
             </a>
-            <a href="#about" className="flex justify-between items-center text-white hover:text-caro-orange transition-colors text-sm font-sans font-bold border-t border-white/10 pt-4" data-cursor="link">
+            <a href="/#about" className="flex justify-between items-center text-white hover:text-caro-orange transition-colors text-sm font-sans font-bold border-t border-white/10 pt-4" data-cursor="link">
               ABOUT <span className="text-white/40 font-normal">02</span>
             </a>
-            <a href="#projects" className="flex justify-between items-center text-white hover:text-caro-orange transition-colors text-sm font-sans font-bold border-t border-white/10 pt-4" data-cursor="link">
+            <a href="/#projects" className="flex justify-between items-center text-white hover:text-caro-orange transition-colors text-sm font-sans font-bold border-t border-white/10 pt-4" data-cursor="link">
               PROJECTS <span className="text-white/40 font-normal">03</span>
             </a>
-            <a href="#contact" className="flex justify-between items-center text-white hover:text-caro-orange transition-colors text-sm font-sans font-bold border-t border-white/10 pt-4" data-cursor="link">
+            <a href="/contact" className="flex justify-between items-center text-white hover:text-caro-orange transition-colors text-sm font-sans font-bold border-t border-white/10 pt-4" data-cursor="link">
               CONTACT <span className="text-white/40 font-normal">04</span>
             </a>
           </div>

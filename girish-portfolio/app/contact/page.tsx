@@ -68,16 +68,16 @@ function ContactFooter() {
         {/* Links */}
         <div className="md:ml-auto w-full max-w-[300px]">
           <div className="flex flex-col">
-            <a href="#" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
+            <a href="/" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
               HOME <span className="text-white/40 font-normal text-sm">01</span>
             </a>
-            <a href="#" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
+            <a href="/#about" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
               ABOUT <span className="text-white/40 font-normal text-sm">02</span>
             </a>
-            <a href="#" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
+            <a href="/#projects" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
               PROJECTS <span className="text-white/40 font-normal text-sm">03</span>
             </a>
-            <a href="#" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
+            <a href="/contact" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
               CONTACT <span className="text-white/40 font-normal text-sm">04</span>
             </a>
           </div>

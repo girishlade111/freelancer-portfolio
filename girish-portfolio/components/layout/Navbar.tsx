@@ -7,10 +7,10 @@ import { Linkedin, Github, Instagram, Codepen } from "@/components/ui/Icons";
 import Image from "next/image";
 
 const OVERLAY_LINKS = [
-  { name: "HOME", href: "#hero" },
-  { name: "ABOUT", href: "#about" },
-  { name: "PROJECTS", href: "#projects" },
-  { name: "CONTACT", href: "#contact" },
+  { name: "HOME", href: "/" },
+  { name: "ABOUT", href: "/#about" },
+  { name: "PROJECTS", href: "/#projects" },
+  { name: "CONTACT", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -248,7 +248,7 @@ export default function Navbar() {
         {/* Bottom Button */}
         <div className="mt-auto mb-12 pointer-events-auto">
           <a
-            href="#contact"
+            href="/contact"
             className="flex items-center gap-2 bg-white text-black px-4 py-3 text-[10px] font-bold tracking-widest uppercase hover:bg-caro-orange hover:text-white transition-colors"
             style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
             data-cursor="link"
