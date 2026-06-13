@@ -1,258 +1,357 @@
 "use client";
 
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Plus, Minus } from "lucide-react";
+import { Plus, Minus, ArrowUpRight } from "lucide-react";
 
-// SECTION 1: Expanding Image (About Section)
-function AboutExpandingSection() {
+// --- Internal Components to avoid touching main layout ---
+
+function ContactNavbar() {
+  return (
+    <nav className="w-full flex justify-between items-center px-6 md:px-12 py-8 absolute top-0 left-0 right-0 z-50 text-black">
+      <div className="font-sans font-bold text-2xl tracking-widest uppercase">
+        CAROLINA
+      </div>
+      <div className="flex items-center gap-3 border-b border-black/20 pb-1 cursor-pointer hover:border-black transition-colors">
+        <span className="font-sans text-sm font-semibold tracking-[0.2em] uppercase">
+          MENU
+        </span>
+        <div className="grid grid-cols-3 gap-[3px]">
+          {[...Array(9)].map((_, i) => (
+            <div key={i} className="w-[4px] h-[4px] bg-black rounded-full" />
+          ))}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function ContactFooter() {
+  return (
+    <footer className="bg-[#171312] text-white pt-24 pb-8 relative overflow-hidden flex flex-col font-sans">
+      {/* Marquee Text */}
+      <div className="relative flex overflow-x-hidden w-full border-b border-white/10 pb-8 mb-20">
+        <div className="animate-marquee flex shrink-0 whitespace-nowrap gap-8 items-center text-7xl md:text-9xl font-bold tracking-tighter text-white pr-8">
+          <span>GET IN TOUCH</span>
+          <span className="text-[#fc7200]">•</span>
+          <span>GET IN TOUCH</span>
+          <span className="text-[#fc7200]">•</span>
+          <span>GET IN TOUCH</span>
+          <span className="text-[#fc7200]">•</span>
+          <span>GET IN TOUCH</span>
+          <span className="text-[#fc7200]">•</span>
+        </div>
+      </div>
+
+      {/* Footer Content */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 px-6 md:px-12 lg:px-24 mb-32 z-10 relative">
+        {/* Follow Me */}
+        <div>
+          <h4 className="text-sm font-semibold tracking-widest uppercase mb-8">Follow Me</h4>
+          <div className="flex flex-col max-w-[200px]">
+            <a href="#" className="flex justify-between items-center text-white/80 hover:text-[#fc7200] transition-colors text-sm py-4 border-b border-white/10 group">
+              LinkedIn <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </a>
+            <a href="#" className="flex justify-between items-center text-white/80 hover:text-[#fc7200] transition-colors text-sm py-4 border-b border-white/10 group">
+              Instagram <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </a>
+            <a href="#" className="flex justify-between items-center text-white/80 hover:text-[#fc7200] transition-colors text-sm py-4 border-b border-white/10 group">
+              Dribble <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </a>
+            <a href="#" className="flex justify-between items-center text-white/80 hover:text-[#fc7200] transition-colors text-sm py-4 border-b border-white/10 group">
+              YouTube <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </a>
+          </div>
+        </div>
+
+        {/* Links */}
+        <div className="md:ml-auto w-full max-w-[300px]">
+          <div className="flex flex-col">
+            <a href="#" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
+              HOME <span className="text-white/40 font-normal text-sm">01</span>
+            </a>
+            <a href="#" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
+              ABOUT <span className="text-white/40 font-normal text-sm">02</span>
+            </a>
+            <a href="#" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
+              PROJECTS <span className="text-white/40 font-normal text-sm">03</span>
+            </a>
+            <a href="#" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
+              CONTACT <span className="text-white/40 font-normal text-sm">04</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full flex justify-center mt-12 mb-4 relative z-0">
+         <h1 className="text-[12vw] font-bold text-white/10 leading-none pointer-events-none select-none tracking-tighter w-full text-center">
+            CAROLINA
+         </h1>
+      </div>
+      
+      {/* Bottom bar */}
+      <div className="absolute bottom-4 left-0 right-0 flex justify-center z-10">
+         <div className="w-12 h-1 bg-white/20 rounded-full" />
+      </div>
+    </footer>
+  );
+}
+
+// --- Page Sections ---
+
+function ExpandingAboutSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end start"]
   });
 
-  // Grow from a small window to full screen
-  const width = useTransform(scrollYProgress, [0, 1], ["40vw", "100vw"]);
-  const height = useTransform(scrollYProgress, [0, 1], ["50vh", "100vh"]);
-  const borderRadius = useTransform(scrollYProgress, [0, 1], ["24px", "0px"]);
-  const opacityText = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-
+  // Calculate width from ~30vw to 100vw, height from ~40vh to 100vh
+  const width = useTransform(scrollYProgress, [0, 0.4], ["40vw", "100vw"]);
+  const height = useTransform(scrollYProgress, [0, 0.4], ["45vh", "100vh"]);
+  // At end of scroll, ensure it fills screen
+  
   return (
-    <div ref={containerRef} className="h-[250vh] w-full relative bg-caro-dark">
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+    <section ref={containerRef} className="h-[250vh] w-full relative bg-[#f2f2f2] text-black pt-32 font-sans">
+      <div className="sticky top-0 h-screen w-full flex flex-col overflow-hidden px-6 md:px-12">
         
-        {/* Title above image */}
-        <motion.div 
-          className="absolute top-32 left-0 w-full text-center z-10 px-4"
-          style={{ opacity: opacityText }}
-        >
-          <h1 className="text-white text-5xl md:text-7xl lg:text-9xl font-bold uppercase tracking-widest font-sans">
-            About
+        {/* Text Header */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-black/10 pb-8 mt-12">
+          <h1 className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-bold tracking-tighter leading-none mb-4 md:mb-0">
+            ABOUT
           </h1>
-        </motion.div>
-        
-        {/* Expanding Image Window */}
-        <motion.div
-          style={{ width, height, borderRadius }}
-          className="relative overflow-hidden z-20 shadow-2xl mt-20"
-        >
-          <Image 
-            src="/images/about-image.png" 
-            alt="About me" 
-            fill 
-            className="object-cover"
-            priority
-          />
-          {/* Overlay to ensure readability if text goes over, though in this design image is just visual */}
-          <div className="absolute inset-0 bg-black/20 pointer-events-none" />
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-// SECTION 2: Work Information
-function WorkInfoSection() {
-  return (
-    <section className="py-24 px-6 md:px-12 lg:px-24 bg-caro-dark text-white relative z-30 font-sans">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* Left: Text Info */}
-        <div className="space-y-12">
-          <div>
-            <h2 className="text-sm font-semibold tracking-[0.2em] text-caro-orange uppercase mb-6">
-              Work Information
-            </h2>
-            <h3 className="text-4xl md:text-5xl lg:text-[4rem] font-bold uppercase tracking-tight leading-[1.1] mb-8">
-              Driving Digital <br/> Excellence
-            </h3>
-            <p className="text-white/70 text-lg md:text-xl max-w-lg mb-8 leading-relaxed font-light">
-              With a diverse background in software engineering and web development, I have helped numerous clients transform their ideas into robust, scalable applications. My focus is always on delivering seamless user experiences and modern aesthetics.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-x-8 gap-y-12">
-            <div>
-              <div className="text-5xl font-bold text-caro-orange mb-3">50+</div>
-              <div className="text-xs text-white/50 uppercase tracking-[0.2em] font-semibold">Projects Completed</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-caro-orange mb-3">30+</div>
-              <div className="text-xs text-white/50 uppercase tracking-[0.2em] font-semibold">Happy Clients</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-caro-orange mb-3">5+</div>
-              <div className="text-xs text-white/50 uppercase tracking-[0.2em] font-semibold">Years Experience</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-caro-orange mb-3">100%</div>
-              <div className="text-xs text-white/50 uppercase tracking-[0.2em] font-semibold">Client Satisfaction</div>
-            </div>
-          </div>
+          <p className="max-w-[300px] text-lg text-black/60 font-light mb-4 text-right">
+            Research-driven. Detail-obsessed. Ready to design what users actually need.
+          </p>
         </div>
 
-        {/* Right: Image */}
-        <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl group">
-          <Image 
-            src="/images/contact-image.png" 
-            alt="Work process" 
-            fill 
-            className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
-          />
+        {/* Expanding Image Window */}
+        <div className="w-full flex-grow flex justify-center items-end pb-8">
+           <motion.div
+             style={{ width, height }}
+             className="relative overflow-hidden z-20 shadow-2xl bg-black/5"
+           >
+             <Image 
+               src="/images/about-image.png" 
+               alt="Abstract Waves" 
+               fill 
+               className="object-cover"
+               priority
+             />
+             <div className="absolute bottom-4 left-0 right-0 flex justify-center z-10">
+               <div className="w-12 h-2 bg-white/40 backdrop-blur-sm rounded-full" />
+             </div>
+           </motion.div>
         </div>
       </div>
     </section>
   );
 }
 
-// SECTION 3: Background Information (Tabs)
-function BackgroundInfoSection() {
-  const [activeTab, setActiveTab] = useState<"education" | "experience" | "achievement">("education");
+function WorkInfoSection() {
+  return (
+    <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#f2f2f2] text-black font-sans">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
+        {/* Left column: Text & Image */}
+        <div className="space-y-16">
+          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
+            The person behind the pixels — driven by curiosity, shaped by craft.
+          </h2>
+          
+          <div className="relative aspect-[4/3] w-full overflow-hidden">
+            <Image 
+              src="/images/contact-image.png" 
+              alt="Flowers in jar" 
+              fill 
+              className="object-cover"
+            />
+            {/* Nav dots placeholder over image */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              <div className="w-2 h-2 rounded-full bg-white/80" />
+              <div className="w-2 h-2 rounded-full bg-white/40" />
+              <div className="w-2 h-2 rounded-full bg-white/40" />
+            </div>
+          </div>
+        </div>
 
-  const tabContent = {
-    education: {
-      title: "Educational Background",
-      items: [
-        { year: "2019 - 2023", role: "Bachelor of Technology", desc: "Graduated with honors in Computer Science, focusing on advanced algorithms and modern web technologies. Participated in multiple national-level coding competitions." },
-        { year: "2017 - 2019", role: "Higher Secondary Education", desc: "Specialized in Science and Mathematics with top percentiles, laying a strong foundation for engineering and analytical thinking." }
-      ]
-    },
-    experience: {
-      title: "Professional Experience",
-      items: [
-        { year: "2023 - Present", role: "Senior Frontend Engineer", desc: "Leading the UI development for cutting-edge applications using React and Next.js. Architecting scalable design systems and improving overall application performance." },
-        { year: "2021 - 2023", role: "Freelance Web Developer", desc: "Delivered highly customized, responsive web solutions for global clients across various industries, handling everything from design to deployment." }
-      ]
-    },
-    achievement: {
-      title: "Key Achievements",
-      items: [
-        { year: "2023", role: "Best UI/UX Implementation", desc: "Awarded for designing and implementing an intuitive, highly accessible dashboard interface that increased user engagement by 40%." },
-        { year: "2022", role: "National Hackathon Winner", desc: "Secured first place in an open-source hackathon for building a real-time collaboration tool tailored for remote teams." }
-      ]
-    }
+        {/* Right column: Bio & Stats */}
+        <div className="space-y-24">
+          <div className="text-black/60 text-lg leading-relaxed font-light space-y-6 pt-2">
+            <p>
+              Grounded in user research, product thinking, and interface design — built through academic work, hands-on internships, and real projects that shipped to real users.
+            </p>
+            <p>
+              Currently open to full-time roles, internships, and freelance projects.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-x-8 gap-y-16 border-t border-black/10 pt-16">
+            <div>
+              <div className="text-6xl md:text-7xl font-bold mb-4 tracking-tighter">98+</div>
+              <div className="text-sm text-black/50 font-medium">Projects Designed & Delivered</div>
+            </div>
+            <div>
+              <div className="text-6xl md:text-7xl font-bold mb-4 tracking-tighter">15+</div>
+              <div className="text-sm text-black/50 font-medium">Tools & Platforms Worked With</div>
+            </div>
+            <div className="border-t border-black/10 pt-12">
+              <div className="text-6xl md:text-7xl font-bold mb-4 tracking-tighter">2+</div>
+              <div className="text-sm text-black/50 font-medium">Years of Expertise</div>
+            </div>
+            <div className="border-t border-black/10 pt-12">
+              <div className="text-6xl md:text-7xl font-bold mb-4 tracking-tighter">25+</div>
+              <div className="text-sm text-black/50 font-medium">Worldwide Clients</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BackgroundInfoSection() {
+  const [activeTab, setActiveTab] = useState<"Education" | "Experience" | "Achievements">("Education");
+
+  const tabs = ["Education", "Experience", "Achievements"] as const;
+
+  const data = {
+    Education: [
+      { role: "BACHELOR OF DESIGN (B.DES)", org: "UX & Interaction Design", year: "2021-2025" },
+      { role: "UX DESIGN CERTIFICATION", org: "Google Programma", year: "2023" },
+      { role: "PRODUCT DESIGN CERTIFICATE", org: "ADP List - Mentorship Program", year: "2024" }
+    ],
+    Experience: [
+      { role: "UI/UX DESIGN INTERN", org: "TechCorp Inc.", year: "2023-Present" },
+      { role: "FREELANCE DESIGNER", org: "Various Global Clients", year: "2022-2023" },
+      { role: "JUNIOR WEB DEVELOPER", org: "Creative Agency", year: "2021-2022" }
+    ],
+    Achievements: [
+      { role: "BEST UI DESIGN AWARD", org: "National Design Competition", year: "2024" },
+      { role: "HACKATHON WINNER", org: "Global Tech Summit", year: "2023" },
+      { role: "PUBLISHED AUTHOR", org: "UX Matters Magazine", year: "2022" }
+    ]
   };
 
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#0a0a0a] text-white font-sans border-t border-white/5">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-        {/* Left: Image & Buttons */}
-        <div className="relative">
-          <div className="sticky top-32 space-y-8">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl mb-8 group">
-              <Image 
-                src="/images/background-image.png" 
-                alt="Background details" 
-                fill 
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <div className="flex flex-wrap gap-4">
-              {(["education", "experience", "achievement"] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-4 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 border rounded-sm flex-1 sm:flex-none text-center ${
-                    activeTab === tab 
-                      ? "bg-caro-orange text-white border-caro-orange" 
-                      : "bg-transparent text-white/50 border-white/10 hover:border-white/30 hover:text-white"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-          </div>
+    <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#f2f2f2] text-black font-sans border-t border-black/10">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+          <h2 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-bold tracking-tighter leading-none mb-6 md:mb-0">
+            BACKGROUND
+          </h2>
+          <p className="max-w-[280px] text-black/50 text-sm md:text-base text-left md:text-right">
+            The education, experience, and achievements that shaped the thinking and craft behind every project.
+          </p>
         </div>
 
-        {/* Right: Content */}
-        <div className="min-h-[500px] flex flex-col justify-center py-8">
-          <h2 className="text-sm font-semibold tracking-[0.2em] text-caro-orange uppercase mb-6">
-            Background Information
-          </h2>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="space-y-12"
-            >
-              <h3 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-white mb-12 border-b border-white/10 pb-8">
-                {tabContent[activeTab].title}
-              </h3>
-              
-              <div className="space-y-12">
-                {tabContent[activeTab].items.map((item, index) => (
-                  <div key={index} className="relative pl-10 before:absolute before:left-0 before:top-2 before:w-3 before:h-3 before:bg-caro-orange before:rounded-sm">
-                    <div className="text-caro-orange text-sm font-mono tracking-[0.1em] mb-3">{item.year}</div>
-                    <h4 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight">{item.role}</h4>
-                    <p className="text-white/60 leading-relaxed text-base md:text-lg font-light max-w-xl">
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_3fr] gap-12 lg:gap-24 items-start">
+          {/* Navigation Buttons */}
+          <div className="flex flex-col gap-6 pt-4">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`text-left text-xl font-semibold transition-colors duration-300 ${
+                  activeTab === tab ? "text-black" : "text-black/30 hover:text-black/60"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          {/* Dynamic Image */}
+          <div className="relative aspect-[3/4] w-full overflow-hidden bg-black/5 max-w-[400px]">
+             <AnimatePresence mode="wait">
+               <motion.div
+                 key={activeTab}
+                 initial={{ opacity: 0, scale: 1.05 }}
+                 animate={{ opacity: 1, scale: 1 }}
+                 exit={{ opacity: 0 }}
+                 transition={{ duration: 0.4 }}
+                 className="absolute inset-0"
+               >
+                 <Image 
+                   src="/images/background-image.png" 
+                   alt={activeTab} 
+                   fill 
+                   className="object-cover"
+                   // Re-using the same image placeholder for now, but animating to show change
+                 />
+               </motion.div>
+             </AnimatePresence>
+          </div>
+
+          {/* Dynamic Content List */}
+          <div className="pt-4">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="flex flex-col">
+                  {data[activeTab].map((item, index) => (
+                    <div key={index} className="flex justify-between items-start py-8 border-b border-black/10 first:pt-0">
+                      <div>
+                        <h3 className="font-bold text-lg mb-2">{item.role}</h3>
+                        <p className="text-black/50 text-sm font-medium">{item.org}</p>
+                      </div>
+                      <div className="text-black/40 text-sm">{item.year}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-// SECTION 4: FAQs
 function FAQSection() {
   const faqs = [
-    {
-      q: "What types of projects do you take on?",
-      a: "I specialize in front-end development, specifically building high-performance web applications using React, Next.js, and modern CSS frameworks. I love working on interactive dashboards, landing pages, and complex user interfaces that require attention to detail."
-    },
-    {
-      q: "How long does a typical project take?",
-      a: "Project timelines vary greatly depending on scope and complexity. A standard landing page or portfolio might take 2-3 weeks, while a full-scale web application could take 2-3 months. I provide detailed, transparent estimates after our initial discovery call."
-    },
-    {
-      q: "Do you handle the design process as well?",
-      a: "While my primary expertise is in frontend engineering and bringing designs to life, I have a strong eye for UI/UX. I am very comfortable working from Figma files, implementing design systems independently, or collaborating with a dedicated designer."
-    },
-    {
-      q: "What is your typical development process?",
-      a: "My process involves Discovery, Strategic Planning, Iterative Development, and Exhaustive Testing. I believe in frequent communication, sharing progress regularly, and ensuring the final product strictly adheres to design constraints and accessibility standards."
-    }
+    "Are you open to full-time roles?",
+    "What disciplines do you specialise in?",
+    "What tools do you work with?",
+    "How long does a typical freelance project take?",
+    "Do you work with international clients or remote teams?"
   ];
 
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:px-24 bg-caro-dark text-white border-t border-white/5 font-sans">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-20">
-          <h2 className="text-sm font-semibold tracking-[0.2em] text-caro-orange uppercase mb-6">Got Questions?</h2>
-          <h3 className="text-4xl md:text-6xl lg:text-[5rem] font-bold uppercase tracking-tight leading-none">
-            Frequently <br/> Asked Questions
-          </h3>
+    <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#f2f2f2] text-black border-t border-black/10 font-sans">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-black/10 pb-8">
+          <h2 className="text-[5rem] md:text-[8rem] font-bold tracking-tighter leading-none mb-6 md:mb-0">
+            FAQS
+          </h2>
+          <p className="max-w-[300px] text-black/50 text-sm md:text-base text-left md:text-right pb-4">
+            No jargon, no fluff. Just clear answers to the most common questions about the work and process.
+          </p>
         </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => {
+        <div className="max-w-4xl ml-auto">
+          {faqs.map((q, index) => {
             const isOpen = openIndex === index;
+            const number = String(index + 1).padStart(2, '0');
             return (
-              <div 
-                key={index} 
-                className={`border border-white/10 rounded-sm overflow-hidden transition-all duration-300 ${isOpen ? 'bg-white/[0.03] border-white/20' : 'bg-transparent hover:bg-white/[0.02]'}`}
-              >
+              <div key={index} className="border-b border-black/10 overflow-hidden">
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full text-left px-8 py-8 flex justify-between items-center"
+                  className="w-full flex items-center justify-between py-8 text-left hover:bg-black/[0.02] transition-colors"
                 >
-                  <span className="text-xl md:text-2xl font-bold tracking-tight pr-8">{faq.q}</span>
-                  <span className={`text-caro-orange transition-transform duration-500 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}>
-                    {isOpen ? <Minus size={24} /> : <Plus size={24} />}
+                  <div className="flex items-center gap-6">
+                    <span className="text-[#fc7200] font-semibold text-lg">{number}</span>
+                    <span className="text-lg md:text-xl font-medium">{q}</span>
+                  </div>
+                  <span className="text-[#fc7200] flex-shrink-0 ml-4">
+                    {isOpen ? <Minus size={20} /> : <Plus size={20} />}
                   </span>
                 </button>
                 <AnimatePresence>
@@ -261,10 +360,10 @@ function FAQSection() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.3 }}
                     >
-                      <div className="px-8 pb-8 text-white/60 leading-relaxed text-lg font-light border-t border-white/5 pt-6">
-                        {faq.a}
+                      <div className="pl-16 pb-8 pr-8 text-black/60 leading-relaxed font-light">
+                        Placeholder answer for the frequently asked question. As a UI implementation, this demonstrates the accordion expansion.
                       </div>
                     </motion.div>
                   )}
@@ -281,23 +380,19 @@ function FAQSection() {
 // MAIN PAGE
 export default function ContactPage() {
   return (
-    <main className="bg-caro-dark min-h-screen">
-      <Navbar />
+    <main className="bg-[#f2f2f2] min-h-screen relative overflow-x-hidden selection:bg-[#fc7200] selection:text-white">
+      <ContactNavbar />
       
-      {/* 1. About Expanding Image Section */}
-      <AboutExpandingSection />
+      <ExpandingAboutSection />
       
-      {/* 2. Work Information */}
       <WorkInfoSection />
       
-      {/* 3. Background Information Tabs */}
       <BackgroundInfoSection />
       
-      {/* 4. FAQs */}
       <FAQSection />
 
-      {/* 5. Footer */}
-      <Footer />
+      <ContactFooter />
     </main>
   );
 }
+
