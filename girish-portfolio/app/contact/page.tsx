@@ -107,10 +107,9 @@ function ExpandingAboutSection() {
     offset: ["start start", "end start"]
   });
 
-  // Calculate width from ~30vw to 100vw, height from ~40vh to 100vh
-  const width = useTransform(scrollYProgress, [0, 0.4], ["40vw", "100vw"]);
-  const height = useTransform(scrollYProgress, [0, 0.4], ["45vh", "100vh"]);
-  // At end of scroll, ensure it fills screen
+  // Maintain a perfect 16:9 (Desktop/YouTube) horizontal ratio during expansion
+  const width = useTransform(scrollYProgress, [0, 0.5], ["35vw", "100vw"]);
+  const height = useTransform(scrollYProgress, [0, 0.5], ["19.6875vw", "56.25vw"]);
   
   return (
     <section ref={containerRef} className="h-[250vh] w-full relative bg-[#f2f2f2] text-black pt-32 font-sans">
@@ -127,10 +126,10 @@ function ExpandingAboutSection() {
         </div>
 
         {/* Expanding Image Window */}
-        <div className="w-full flex-grow flex justify-center items-end pb-8">
+        <div className="w-full flex-grow flex justify-center items-center pb-12">
            <motion.div
              style={{ width, height }}
-             className="relative overflow-hidden z-20 shadow-2xl bg-black/5"
+             className="relative overflow-hidden z-20 bg-black/5"
            >
              <Image 
                src="/images/about-image.png" 
@@ -140,7 +139,7 @@ function ExpandingAboutSection() {
                priority
              />
              <div className="absolute bottom-4 left-0 right-0 flex justify-center z-10">
-               <div className="w-12 h-2 bg-white/40 backdrop-blur-sm rounded-full" />
+               <div className="w-12 h-1.5 bg-white/40 backdrop-blur-sm rounded-full" />
              </div>
            </motion.div>
         </div>
@@ -155,7 +154,7 @@ function WorkInfoSection() {
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
         {/* Left column: Text & Image */}
         <div className="space-y-16">
-          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
+          <h2 className="text-5xl md:text-6xl font-bold tracking-tighter leading-[1.1]">
             The person behind the pixels — driven by curiosity, shaped by craft.
           </h2>
           
@@ -237,10 +236,10 @@ function BackgroundInfoSection() {
     <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#f2f2f2] text-black font-sans border-t border-black/10">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
-          <h2 className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-bold tracking-tighter leading-none mb-6 md:mb-0">
+          <h2 className="text-[5rem] md:text-[8rem] lg:text-[10rem] font-bold tracking-tighter leading-none mb-6 md:mb-0">
             BACKGROUND
           </h2>
-          <p className="max-w-[280px] text-black/50 text-sm md:text-base text-left md:text-right">
+          <p className="max-w-[280px] text-black/50 text-base md:text-lg text-left md:text-right font-medium">
             The education, experience, and achievements that shaped the thinking and craft behind every project.
           </p>
         </div>
@@ -328,10 +327,10 @@ function FAQSection() {
     <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#f2f2f2] text-black border-t border-black/10 font-sans">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-black/10 pb-8">
-          <h2 className="text-[5rem] md:text-[8rem] font-bold tracking-tighter leading-none mb-6 md:mb-0">
+          <h2 className="text-[6rem] md:text-[9rem] font-bold tracking-tighter leading-none mb-6 md:mb-0">
             FAQS
           </h2>
-          <p className="max-w-[300px] text-black/50 text-sm md:text-base text-left md:text-right pb-4">
+          <p className="max-w-[300px] text-black/50 text-base md:text-lg text-left md:text-right pb-4 font-medium">
             No jargon, no fluff. Just clear answers to the most common questions about the work and process.
           </p>
         </div>
