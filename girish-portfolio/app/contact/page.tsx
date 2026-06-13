@@ -1,36 +1,49 @@
 "use client";
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { Plus, Minus, ArrowUpRight } from "lucide-react";
 
 // --- Internal Components to avoid touching main layout ---
 
-function ContactNavbar() {
+function ContactNavbar({ scrollYProgress }: { scrollYProgress: any }) {
+  const textColor = useTransform(scrollYProgress, [0.75, 0.85, 0.92, 1.0], ["#000000", "#ffffff", "#ffffff", "#000000"]);
+  const borderCol = useTransform(scrollYProgress, [0.75, 0.85, 0.92, 1.0], ["rgba(0,0,0,0.2)", "rgba(255,255,255,0.2)", "rgba(255,255,255,0.2)", "rgba(0,0,0,0.2)"]);
+  const dotBg = useTransform(scrollYProgress, [0.75, 0.85, 0.92, 1.0], ["#000000", "#ffffff", "#ffffff", "#000000"]);
+
   return (
-    <nav className="w-full flex justify-between items-center px-6 md:px-12 py-8 absolute top-0 left-0 right-0 z-50 text-black">
+    <motion.nav 
+      style={{ color: textColor }}
+      className="w-full flex justify-between items-center px-6 md:px-12 py-8 fixed top-0 left-0 right-0 z-50 transition-colors duration-100"
+    >
       <div className="font-sans font-bold text-2xl tracking-widest uppercase">
         CAROLINA
       </div>
-      <div className="flex items-center gap-3 border-b border-black/20 pb-1 cursor-pointer hover:border-black transition-colors">
+      <motion.div 
+        style={{ borderColor: borderCol }}
+        className="flex items-center gap-3 border-b pb-1 cursor-pointer hover:opacity-85 transition-opacity"
+      >
         <span className="font-sans text-sm font-semibold tracking-[0.2em] uppercase">
           MENU
         </span>
         <div className="grid grid-cols-3 gap-[3px]">
           {[...Array(9)].map((_, i) => (
-            <div key={i} className="w-[4px] h-[4px] bg-black rounded-full" />
+            <motion.div 
+              key={i} 
+              style={{ backgroundColor: dotBg }}
+              className="w-[4px] h-[4px] rounded-full" 
+            />
           ))}
         </div>
-      </div>
-    </nav>
+      </motion.div>
+    </motion.nav>
   );
 }
 
 function ContactFooter() {
   return (
     <footer className="bg-[#171312] text-white pt-24 pb-8 relative overflow-hidden flex flex-col font-sans">
-      {/* Marquee Text */}
       <div className="relative flex overflow-x-hidden w-full border-b border-white/10 pb-8 mb-20">
         <div className="animate-marquee flex shrink-0 whitespace-nowrap gap-8 items-center text-7xl md:text-9xl font-bold tracking-tighter text-white pr-8">
           <span>GET IN TOUCH</span>
@@ -44,9 +57,7 @@ function ContactFooter() {
         </div>
       </div>
 
-      {/* Footer Content */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 px-6 md:px-12 lg:px-24 mb-32 z-10 relative">
-        {/* Follow Me */}
         <div>
           <h4 className="text-sm font-semibold tracking-widest uppercase mb-8">Follow Me</h4>
           <div className="flex flex-col max-w-[200px]">
@@ -65,7 +76,6 @@ function ContactFooter() {
           </div>
         </div>
 
-        {/* Links */}
         <div className="md:ml-auto w-full max-w-[300px]">
           <div className="flex flex-col">
             <a href="/" className="flex justify-between items-center text-white hover:text-[#fc7200] transition-colors text-lg font-bold py-4 border-b border-white/10">
@@ -90,7 +100,6 @@ function ContactFooter() {
          </h1>
       </div>
       
-      {/* Bottom bar */}
       <div className="absolute bottom-4 left-0 right-0 flex justify-center z-10">
          <div className="w-12 h-1 bg-white/20 rounded-full" />
       </div>
@@ -100,36 +109,61 @@ function ContactFooter() {
 
 // --- Page Sections ---
 
-function ExpandingAboutSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
+interface ExpandingAboutSectionProps {
+  sectionRef: React.RefObject<HTMLDivElement | null>;
+  scrollYProgress: any;
+}
 
-  // Maintain a perfect 16:9 (Desktop/YouTube) horizontal ratio during expansion
-  const width = useTransform(scrollYProgress, [0, 0.5], ["35vw", "100vw"]);
-  const height = useTransform(scrollYProgress, [0, 0.5], ["19.6875vw", "56.25vw"]);
+function ExpandingAboutSection({ sectionRef, scrollYProgress }: ExpandingAboutSectionProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const headerY = useTransform(scrollYProgress, [0, 0.2], [0, -80]);
+
+  const imageY = useTransform(scrollYProgress, [0, 0.35], ["30vh", "0vh"]);
   
-  return (
-    <section ref={containerRef} className="h-[250vh] w-full relative bg-[#f2f2f2] text-black pt-32 font-sans">
-      <div className="sticky top-0 h-screen w-full flex flex-col overflow-hidden px-6 md:px-12">
-        
-        {/* Text Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-black/10 pb-8 mt-12">
-          <h1 className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-bold tracking-tighter leading-none mb-4 md:mb-0">
-            ABOUT
-          </h1>
-          <p className="max-w-[300px] text-lg text-black/60 font-light mb-4 text-right">
-            Research-driven. Detail-obsessed. Ready to design what users actually need.
-          </p>
-        </div>
+  const width = useTransform(
+    scrollYProgress,
+    [0, 0.35, 0.85],
+    isMobile ? ["80vw", "85vw", "100vw"] : ["45vw", "55vw", "100vw"]
+  );
+  
+  const height = useTransform(
+    scrollYProgress,
+    [0, 0.35, 0.85],
+    isMobile ? ["45vw", "47.8vw", "100vh"] : ["25.31vw", "30.93vw", "100vh"]
+  );
 
-        {/* Expanding Image Window */}
-        <div className="w-full flex-grow flex justify-center items-center pb-12">
+  const borderRadius = useTransform(scrollYProgress, [0, 0.7, 0.85], ["16px", "12px", "0px"]);
+
+  return (
+    <section ref={sectionRef} className="h-[300vh] w-full relative bg-[#f2f2f2]">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden">
+        <motion.div 
+          style={{ opacity: headerOpacity, y: headerY }}
+          className="w-full flex flex-col pt-32 px-6 md:px-12 z-10"
+        >
+          <h1 className="text-[10vw] md:text-[8vw] font-bold tracking-tighter leading-none text-black pb-4 border-b border-black/10">
+            CONTACT
+          </h1>
+          <div className="flex justify-end mt-4">
+            <p className="max-w-[320px] text-xs md:text-sm text-black/60 font-medium leading-relaxed text-left">
+              Open to full-time roles, freelance projects, and good design conversations. Drop a message — it won't sit unanswered for long.
+            </p>
+          </div>
+        </motion.div>
+
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
            <motion.div
-             style={{ width, height }}
-             className="relative overflow-hidden z-20 bg-black/5"
+             style={{ width, height, y: imageY, borderRadius }}
+             className="relative overflow-hidden bg-black/5 shadow-2xl"
            >
              <Image 
                src="/images/about-image.png" 
@@ -138,9 +172,6 @@ function ExpandingAboutSection() {
                className="object-cover"
                priority
              />
-             <div className="absolute bottom-4 left-0 right-0 flex justify-center z-10">
-               <div className="w-12 h-1.5 bg-white/40 backdrop-blur-sm rounded-full" />
-             </div>
            </motion.div>
         </div>
       </div>
@@ -150,33 +181,25 @@ function ExpandingAboutSection() {
 
 function WorkInfoSection() {
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#f2f2f2] text-black font-sans">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
-        {/* Left column: Text & Image */}
-        <div className="space-y-16">
-          <h2 className="text-5xl md:text-6xl font-bold tracking-tighter leading-[1.1]">
+    <section className="py-16 md:py-24 px-4 md:px-12 lg:px-24 bg-[#f2f2f2] text-black font-sans">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-32 items-start">
+        <div className="space-y-8 md:space-y-16">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1]">
             The person behind the pixels — driven by curiosity, shaped by craft.
           </h2>
           
-          <div className="relative aspect-[4/3] w-full overflow-hidden">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
             <Image 
               src="/images/contact-image.png" 
               alt="Flowers in jar" 
               fill 
               className="object-cover"
             />
-            {/* Nav dots placeholder over image */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              <div className="w-2 h-2 rounded-full bg-white/80" />
-              <div className="w-2 h-2 rounded-full bg-white/40" />
-              <div className="w-2 h-2 rounded-full bg-white/40" />
-            </div>
           </div>
         </div>
 
-        {/* Right column: Bio & Stats */}
-        <div className="space-y-24">
-          <div className="text-black/60 text-lg leading-relaxed font-light space-y-6 pt-2">
+        <div className="space-y-12 md:space-y-24 mt-8 lg:mt-0">
+          <div className="text-black/60 text-base md:text-lg leading-relaxed font-light space-y-6 md:pt-2">
             <p>
               Grounded in user research, product thinking, and interface design — built through academic work, hands-on internships, and real projects that shipped to real users.
             </p>
@@ -185,22 +208,22 @@ function WorkInfoSection() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-16 border-t border-black/10 pt-16">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-16 border-t border-black/10 pt-10 md:pt-16">
             <div>
-              <div className="text-6xl md:text-7xl font-bold mb-4 tracking-tighter">98+</div>
-              <div className="text-sm text-black/50 font-medium">Projects Designed & Delivered</div>
+              <div className="text-4xl md:text-6xl lg:text-7xl font-bold mb-2 md:mb-4 tracking-tighter">98+</div>
+              <div className="text-xs md:text-sm text-black/50 font-medium">Projects Designed & Delivered</div>
             </div>
             <div>
-              <div className="text-6xl md:text-7xl font-bold mb-4 tracking-tighter">15+</div>
-              <div className="text-sm text-black/50 font-medium">Tools & Platforms Worked With</div>
+              <div className="text-4xl md:text-6xl lg:text-7xl font-bold mb-2 md:mb-4 tracking-tighter">15+</div>
+              <div className="text-xs md:text-sm text-black/50 font-medium">Tools & Platforms Worked With</div>
             </div>
-            <div className="border-t border-black/10 pt-12">
-              <div className="text-6xl md:text-7xl font-bold mb-4 tracking-tighter">2+</div>
-              <div className="text-sm text-black/50 font-medium">Years of Expertise</div>
+            <div className="border-t border-black/10 pt-8 md:pt-12">
+              <div className="text-4xl md:text-6xl lg:text-7xl font-bold mb-2 md:mb-4 tracking-tighter">2+</div>
+              <div className="text-xs md:text-sm text-black/50 font-medium">Years of Expertise</div>
             </div>
-            <div className="border-t border-black/10 pt-12">
-              <div className="text-6xl md:text-7xl font-bold mb-4 tracking-tighter">25+</div>
-              <div className="text-sm text-black/50 font-medium">Worldwide Clients</div>
+            <div className="border-t border-black/10 pt-8 md:pt-12">
+              <div className="text-4xl md:text-6xl lg:text-7xl font-bold mb-2 md:mb-4 tracking-tighter">25+</div>
+              <div className="text-xs md:text-sm text-black/50 font-medium">Worldwide Clients</div>
             </div>
           </div>
         </div>
@@ -211,7 +234,6 @@ function WorkInfoSection() {
 
 function BackgroundInfoSection() {
   const [activeTab, setActiveTab] = useState<"Education" | "Experience" | "Achievements">("Education");
-
   const tabs = ["Education", "Experience", "Achievements"] as const;
 
   const data = {
@@ -233,25 +255,24 @@ function BackgroundInfoSection() {
   };
 
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#f2f2f2] text-black font-sans border-t border-black/10">
+    <section className="py-16 md:py-24 px-4 md:px-12 lg:px-24 bg-[#f2f2f2] text-black font-sans border-t border-black/10">
       <div className="max-w-[1400px] mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
-          <h2 className="text-[5rem] md:text-[8rem] lg:text-[10rem] font-bold tracking-tighter leading-none mb-6 md:mb-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16">
+          <h2 className="text-[10vw] md:text-[8vw] lg:text-[10rem] font-bold tracking-tighter leading-none mb-4 md:mb-0">
             BACKGROUND
           </h2>
-          <p className="max-w-[280px] text-black/50 text-base md:text-lg text-left md:text-right font-medium">
+          <p className="max-w-[280px] text-black/50 text-sm md:text-base lg:text-lg text-left md:text-right font-medium">
             The education, experience, and achievements that shaped the thinking and craft behind every project.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_3fr] gap-12 lg:gap-24 items-start">
-          {/* Navigation Buttons */}
-          <div className="flex flex-col gap-6 pt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_2fr_3fr] gap-8 md:gap-12 lg:gap-24 items-start">
+          <div className="flex flex-row md:flex-col gap-4 md:gap-6 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 pt-2 border-b md:border-b-0 border-black/10 md:pt-4">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`text-left text-xl font-semibold transition-colors duration-300 ${
+                className={`text-left text-lg md:text-xl font-semibold transition-colors duration-300 whitespace-nowrap ${
                   activeTab === tab ? "text-black" : "text-black/30 hover:text-black/60"
                 }`}
               >
@@ -260,8 +281,7 @@ function BackgroundInfoSection() {
             ))}
           </div>
 
-          {/* Dynamic Image */}
-          <div className="relative aspect-[3/4] w-full overflow-hidden bg-black/5 max-w-[400px]">
+          <div className="relative aspect-[3/4] w-full overflow-hidden bg-black/5 max-w-[320px] md:max-w-[400px] mx-auto md:mx-0 rounded-xl">
              <AnimatePresence mode="wait">
                <motion.div
                  key={activeTab}
@@ -276,34 +296,32 @@ function BackgroundInfoSection() {
                    alt={activeTab} 
                    fill 
                    className="object-cover"
-                   // Re-using the same image placeholder for now, but animating to show change
                  />
                </motion.div>
              </AnimatePresence>
           </div>
 
-          {/* Dynamic Content List */}
-          <div className="pt-4">
+          <div className="pt-2 md:pt-4">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
-              >
-                <div className="flex flex-col">
-                  {data[activeTab].map((item, index) => (
-                    <div key={index} className="flex justify-between items-start py-8 border-b border-black/10 first:pt-0">
-                      <div>
-                        <h3 className="font-bold text-lg mb-2">{item.role}</h3>
-                        <p className="text-black/50 text-sm font-medium">{item.org}</p>
-                      </div>
-                      <div className="text-black/40 text-sm">{item.year}</div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
+               <motion.div
+                 key={activeTab}
+                 initial={{ opacity: 0, y: 10 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 exit={{ opacity: 0, y: -10 }}
+                 transition={{ duration: 0.4 }}
+               >
+                 <div className="flex flex-col">
+                   {data[activeTab].map((item, index) => (
+                     <div key={index} className="flex justify-between items-start py-6 md:py-8 border-b border-black/10 first:pt-0">
+                       <div className="pr-4">
+                         <h3 className="font-bold text-base md:text-lg mb-1 md:mb-2">{item.role}</h3>
+                         <p className="text-black/50 text-xs md:text-sm font-medium">{item.org}</p>
+                       </div>
+                       <div className="text-black/40 text-xs md:text-sm whitespace-nowrap">{item.year}</div>
+                     </div>
+                   ))}
+                 </div>
+               </motion.div>
             </AnimatePresence>
           </div>
         </div>
@@ -320,17 +338,16 @@ function FAQSection() {
     "How long does a typical freelance project take?",
     "Do you work with international clients or remote teams?"
   ];
-
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#f2f2f2] text-black border-t border-black/10 font-sans">
+    <section className="py-16 md:py-24 px-4 md:px-12 lg:px-24 bg-[#f2f2f2] text-black border-t border-black/10 font-sans">
       <div className="max-w-[1400px] mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-black/10 pb-8">
-          <h2 className="text-[6rem] md:text-[9rem] font-bold tracking-tighter leading-none mb-6 md:mb-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-black/10 pb-8">
+          <h2 className="text-[10vw] md:text-[6rem] lg:text-[8rem] font-bold tracking-tighter leading-none mb-4 md:mb-0">
             FAQS
           </h2>
-          <p className="max-w-[300px] text-black/50 text-base md:text-lg text-left md:text-right pb-4 font-medium">
+          <p className="max-w-[300px] text-black/50 text-sm md:text-base lg:text-lg text-left md:text-right pb-2 font-medium">
             No jargon, no fluff. Just clear answers to the most common questions about the work and process.
           </p>
         </div>
@@ -343,14 +360,14 @@ function FAQSection() {
               <div key={index} className="border-b border-black/10 overflow-hidden">
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between py-8 text-left hover:bg-black/[0.02] transition-colors"
+                  className="w-full flex items-center justify-between py-6 md:py-8 text-left hover:bg-black/[0.02] transition-colors"
                 >
-                  <div className="flex items-center gap-6">
-                    <span className="text-[#fc7200] font-semibold text-lg">{number}</span>
-                    <span className="text-lg md:text-xl font-medium">{q}</span>
+                  <div className="flex items-center gap-4 md:gap-6">
+                    <span className="text-[#fc7200] font-semibold text-base md:text-lg">{number}</span>
+                    <span className="text-base md:text-xl font-medium pr-4">{q}</span>
                   </div>
-                  <span className="text-[#fc7200] flex-shrink-0 ml-4">
-                    {isOpen ? <Minus size={20} /> : <Plus size={20} />}
+                  <span className="text-[#fc7200] flex-shrink-0">
+                    {isOpen ? <Minus size={18} /> : <Plus size={18} />}
                   </span>
                 </button>
                 <AnimatePresence>
@@ -361,7 +378,7 @@ function FAQSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <div className="pl-16 pb-8 pr-8 text-black/60 leading-relaxed font-light">
+                      <div className="pl-10 md:pl-16 pb-6 md:pb-8 pr-4 md:pr-8 text-black/60 text-sm md:text-base leading-relaxed font-light">
                         Placeholder answer for the frequently asked question. As a UI implementation, this demonstrates the accordion expansion.
                       </div>
                     </motion.div>
@@ -378,11 +395,17 @@ function FAQSection() {
 
 // MAIN PAGE
 export default function ContactPage() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+
   return (
     <main className="bg-[#f2f2f2] min-h-screen relative overflow-x-hidden selection:bg-[#fc7200] selection:text-white">
-      <ContactNavbar />
+      <ContactNavbar scrollYProgress={scrollYProgress} />
       
-      <ExpandingAboutSection />
+      <ExpandingAboutSection sectionRef={sectionRef} scrollYProgress={scrollYProgress} />
       
       <WorkInfoSection />
       
@@ -394,4 +417,3 @@ export default function ContactPage() {
     </main>
   );
 }
-
